@@ -7,57 +7,170 @@
     <link rel="icon" type="image/x-icon" href="modulo_richiesta.ico">
     <style>
         :root { --colore-principale: #5e7153; --colore-secondario: #8c9c83; --sfondo: #f4f7f6; }
-        body { font-family: 'Arial', sans-serif; background-color: var(--sfondo); padding: 20px; color: #333; }
-        .container { max-width: 600px; background: white; margin: 20px auto; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h1 { color: var(--colore-principale); text-align: center; font-family: 'Georgia', serif; }
-        p.desc { text-align: center; color: #666; margin-bottom: 30px; }
+        body { font-family: 'Arial', sans-serif; background-color: var(--sfondo); padding: 20px; color: #333; margin: 0; }
+        
+        .container { max-width: 600px; background: white; margin: 20px auto; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
+        h1 { color: var(--colore-principale); text-align: center; font-family: 'Georgia', serif; margin-top: 10px; }
+        p.desc { text-align: center; color: #666; margin-bottom: 30px; font-size: 15px; line-height: 1.5; }
+        
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         label { display: block; margin-top: 15px; font-size: 13px; font-weight: bold; color: #555; }
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 15px; margin-top: 5px; }
-        button { width: 100%; background: var(--colore-principale); color: white; border: none; padding: 15px; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 25px; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; gap: 0; } .container { padding: 20px; } }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 15px; margin-top: 5px; font-family: inherit; }
+        button { width: 100%; background: var(--colore-principale); color: white; border: none; padding: 15px; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 25px; transition: 0.3s; }
+        button:hover { background-color: var(--colore-secondario); }
+        
+        /* GESTIONE CAMBIO LINGUA */
+        .lang-switcher { position: absolute; top: 15px; right: 20px; display: flex; gap: 10px; }
+        .lang-btn { cursor: pointer; font-size: 22px; filter: grayscale(100%); transition: 0.3s; opacity: 0.5; user-select: none; }
+        .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        [lang="en"] { display: none !important; }
+        body.lang-en [lang="it"] { display: none !important; }
+        body.lang-en [lang="en"] { display: inline !important; }
+
+        /* RESPONSIVE PER CELLULARI */
+        @media (max-width: 600px) { 
+            body { padding: 10px; }
+            .container { padding: 30px 20px; margin: 10px auto; }
+            .grid { grid-template-columns: 1fr; gap: 0; } 
+            .lang-switcher { top: 10px; right: 15px; }
+            h1 { font-size: 24px; margin-top: 20px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container" id="form-container">
-    <h1>Richiedi Disponibilità</h1>
-    <p class="desc">Compila il modulo per verificare la disponibilità delle date e ricevere la nostra migliore offerta.</p>
+    <div class="lang-switcher">
+        <span class="lang-btn active" id="btn-it" onclick="changeLang('it')">🇮🇹</span>
+        <span class="lang-btn" id="btn-en" onclick="changeLang('en')">🇬🇧</span>
+    </div>
+
+    <h1>
+        <span lang="it">Richiedi Disponibilità</span>
+        <span lang="en">Request Availability</span>
+    </h1>
+    <p class="desc">
+        <span lang="it">Compila il modulo per verificare la disponibilità delle date e ricevere la nostra migliore offerta.</span>
+        <span lang="en">Fill out the form to check date availability and receive our best offer.</span>
+    </p>
     
     <form id="richiestaForm">
         <div class="grid">
-            <div><label>Nome *</label><input type="text" id="nome" required></div>
-            <div><label>Cognome *</label><input type="text" id="cognome" required></div>
+            <div>
+                <label><span lang="it">Nome *</span><span lang="en">First Name *</span></label>
+                <input type="text" id="nome" required>
+            </div>
+            <div>
+                <label><span lang="it">Cognome *</span><span lang="en">Last Name *</span></label>
+                <input type="text" id="cognome" required>
+            </div>
         </div>
         
         <div class="grid">
-            <div><label>Email *</label><input type="email" id="email" required></div>
-            <div><label>Telefono / WhatsApp *</label><input type="tel" id="telefono" required></div>
+            <div>
+                <label><span lang="it">Email *</span><span lang="en">Email *</span></label>
+                <input type="email" id="email" required>
+            </div>
+            <div>
+                <label><span lang="it">Telefono / WhatsApp *</span><span lang="en">Phone / WhatsApp *</span></label>
+                <input type="tel" id="telefono" required>
+            </div>
         </div>
 
         <div class="grid">
-            <div><label>Data Arrivo *</label><input type="date" id="arrivo" required></div>
-            <div><label>Data Partenza *</label><input type="date" id="partenza" required></div>
+            <div>
+                <label><span lang="it">Data Arrivo *</span><span lang="en">Check-in Date *</span></label>
+                <input type="date" id="arrivo" required>
+            </div>
+            <div>
+                <label><span lang="it">Data Partenza *</span><span lang="en">Check-out Date *</span></label>
+                <input type="date" id="partenza" required>
+            </div>
         </div>
         
-        <label>Numero di Ospiti *</label>
+        <label>
+            <span lang="it">Numero di Ospiti *</span>
+            <span lang="en">Number of Guests *</span>
+        </label>
         <select id="ospiti" required>
-            <option value="1">1 Ospite</option>
-            <option value="2" selected>2 Ospiti</option>
-            <option value="3">3 Ospiti</option>
-            <option value="4">4 Ospiti</option>
-            <option value="5+">5 o più Ospiti</option>
+            <option value="1" id="opt1">1 Ospite</option>
+            <option value="2" id="opt2" selected>2 Ospiti</option>
+            <option value="3" id="opt3">3 Ospiti</option>
+            <option value="4" id="opt4">4 Ospiti</option>
+            <option value="5+" id="opt5">5 o più Ospiti</option>
         </select>
 
-        <label>Note o richieste particolari</label>
+        <label>
+            <span lang="it">Note o richieste particolari</span>
+            <span lang="en">Notes or special requests</span>
+        </label>
         <textarea id="note" rows="4" placeholder="Es. Viaggiamo con un cagnolino..."></textarea>
 
-        <button type="button" id="btnInvia" onclick="inviaRichiesta()">INVIA RICHIESTA</button>
-        <div id="loading" style="display:none; text-align:center; color:#5e7153; margin-top:15px; font-weight:bold;">Invio in corso... ⏳</div>
+        <button type="button" id="btnInvia" onclick="inviaRichiesta()">
+            <span lang="it">INVIA RICHIESTA</span>
+            <span lang="en">SEND REQUEST</span>
+        </button>
+        <div id="loading" style="display:none; text-align:center; color:#5e7153; margin-top:15px; font-weight:bold;">
+            <span lang="it">Invio in corso... ⏳</span>
+            <span lang="en">Sending... ⏳</span>
+        </div>
     </form>
 </div>
 
 <script>
+    // --- DIZIONARIO TRADUZIONI (Per Placeholders, Select e Messaggi di risposta) ---
+    const traduzioni = {
+        it: {
+            placeholder: "Es. Viaggiamo con un cagnolino...",
+            opt1: "1 Ospite", opt2: "2 Ospiti", opt3: "3 Ospiti", opt4: "4 Ospiti", opt5: "5 o più Ospiti",
+            successTitle: "Richiesta Inviata! ✈️",
+            successDesc: "Grazie per averci contattato. Ti risponderemo al più presto con la disponibilità e le tariffe.",
+            errore: "Errore di connessione. Riprova."
+        },
+        en: {
+            placeholder: "E.g. We are traveling with a small dog...",
+            opt1: "1 Guest", opt2: "2 Guests", opt3: "3 Guests", opt4: "4 Guests", opt5: "5 or more Guests",
+            successTitle: "Request Sent! ✈️",
+            successDesc: "Thank you for contacting us. We will reply as soon as possible with availability and rates.",
+            errore: "Connection error. Please try again."
+        }
+    };
+
+    let linguaAttuale = 'it';
+
+    // --- FUNZIONE CAMBIO LINGUA ---
+    function changeLang(lang) {
+        linguaAttuale = lang;
+        if (lang === 'en') {
+            document.body.classList.add('lang-en');
+            document.getElementById('btn-en').classList.add('active');
+            document.getElementById('btn-it').classList.remove('active');
+        } else {
+            document.body.classList.remove('lang-en');
+            document.getElementById('btn-it').classList.add('active');
+            document.getElementById('btn-en').classList.remove('active');
+        }
+        
+        // Aggiorna Placeholder e Tendina Ospiti
+        document.getElementById('note').placeholder = traduzioni[lang].placeholder;
+        document.getElementById('opt1').innerText = traduzioni[lang].opt1;
+        document.getElementById('opt2').innerText = traduzioni[lang].opt2;
+        document.getElementById('opt3').innerText = traduzioni[lang].opt3;
+        document.getElementById('opt4').innerText = traduzioni[lang].opt4;
+        document.getElementById('opt5').innerText = traduzioni[lang].opt5;
+
+        // Salva la preferenza per quando ricarica la pagina
+        localStorage.setItem('pref-lang-form', lang);
+    }
+
+    // Carica lingua salvata all'avvio
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('pref-lang-form') || 'it';
+        changeLang(savedLang);
+    });
+
+    // --- FUNZIONE INVIO DATI A GOOGLE ---
     function inviaRichiesta() {
         const form = document.getElementById('richiestaForm');
         if (!form.checkValidity()) { form.reportValidity(); return; }
@@ -81,13 +194,14 @@
 
         fetch(LINK_GOOGLE, { method: "POST", body: JSON.stringify(payload) })
         .then(() => {
+            // Messaggio di Successo tradotto
             document.getElementById('form-container').innerHTML = `
-                <h2 style="color:#5e7153; text-align:center;">Richiesta Inviata! ✈️</h2>
-                <p style="text-align:center; color:#666;">Grazie per averci contattato. Ti risponderemo al più presto con la disponibilità e le tariffe.</p>
+                <h2 style="color:#5e7153; text-align:center; margin-top:20px;">${traduzioni[linguaAttuale].successTitle}</h2>
+                <p style="text-align:center; color:#666; line-height: 1.5;">${traduzioni[linguaAttuale].successDesc}</p>
             `;
         })
         .catch(() => {
-            alert("Errore di connessione. Riprova.");
+            alert(traduzioni[linguaAttuale].errore);
             document.getElementById('btnInvia').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
         });
