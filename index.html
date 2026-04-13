@@ -28,7 +28,6 @@
         body.lang-en [lang="it"] { display: none !important; }
         body.lang-en [lang="en"] { display: inline !important; }
 
-        /* RESPONSIVE PER CELLULARI */
         @media (max-width: 600px) { 
             body { padding: 10px; }
             .container { padding: 30px 20px; margin: 10px auto; }
@@ -119,7 +118,32 @@
 </div>
 
 <script>
-    // --- DIZIONARIO TRADUZIONI (Per Placeholders, Select e Messaggi di risposta) ---
+    // --- BLOCCO DELLE DATE PASSATE ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const campoArrivo = document.getElementById('arrivo');
+        const campoPartenza = document.getElementById('partenza');
+        
+        // Prende la data di oggi e la imposta come minima per l'arrivo
+        let oggi = new Date().toISOString().split("T")[0];
+        campoArrivo.setAttribute('min', oggi);
+        campoPartenza.setAttribute('min', oggi);
+
+        // Quando si seleziona l'arrivo, la partenza deve essere almeno il giorno dopo
+        campoArrivo.addEventListener('change', function() {
+            let dataMinPartenza = new Date(this.value);
+            dataMinPartenza.setDate(dataMinPartenza.getDate() + 1); // Aggiunge 1 giorno
+            let minPartenzaStr = dataMinPartenza.toISOString().split("T")[0];
+            
+            campoPartenza.setAttribute('min', minPartenzaStr);
+            
+            // Se la partenza selezionata prima è precedente al nuovo limite, la azzera
+            if(campoPartenza.value && campoPartenza.value < minPartenzaStr) {
+                campoPartenza.value = "";
+            }
+        });
+    });
+
+    // --- DIZIONARIO TRADUZIONI ---
     const traduzioni = {
         it: {
             placeholder: "Es. Viaggiamo con un cagnolino...",
@@ -152,7 +176,6 @@
             document.getElementById('btn-en').classList.remove('active');
         }
         
-        // Aggiorna Placeholder e Tendina Ospiti
         document.getElementById('note').placeholder = traduzioni[lang].placeholder;
         document.getElementById('opt1').innerText = traduzioni[lang].opt1;
         document.getElementById('opt2').innerText = traduzioni[lang].opt2;
@@ -160,11 +183,9 @@
         document.getElementById('opt4').innerText = traduzioni[lang].opt4;
         document.getElementById('opt5').innerText = traduzioni[lang].opt5;
 
-        // Salva la preferenza per quando ricarica la pagina
         localStorage.setItem('pref-lang-form', lang);
     }
 
-    // Carica lingua salvata all'avvio
     window.addEventListener('DOMContentLoaded', () => {
         const savedLang = localStorage.getItem('pref-lang-form') || 'it';
         changeLang(savedLang);
@@ -194,7 +215,6 @@
 
         fetch(LINK_GOOGLE, { method: "POST", body: JSON.stringify(payload) })
         .then(() => {
-            // Messaggio di Successo tradotto
             document.getElementById('form-container').innerHTML = `
                 <h2 style="color:#5e7153; text-align:center; margin-top:20px;">${traduzioni[linguaAttuale].successTitle}</h2>
                 <p style="text-align:center; color:#666; line-height: 1.5;">${traduzioni[linguaAttuale].successDesc}</p>
