@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Richiesta Disponibilità | PadreSergio House</title>
+    <link rel="preload" as="video" href="video_sfondo.mp4" type="video/mp4">
     <meta name="description" content="Invia la tua richiesta di prenotazione per PadreSergio House a Monopoli. Compila il modulo e ti risponderemo al più presto!">
-
     <meta property="og:title" content="Prenota la tua vacanza in Puglia ☀️">
     <meta property="og:description" content="Verifica la disponibilità a PadreSergio House, Monopoli. Inserisci le date e compila il modulo, ti aspettiamo!">
     <meta property="og:type" content="website">
@@ -16,18 +15,38 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Prenota la tua vacanza in Puglia ☀️">
     <meta name="twitter:description" content="Verifica la disponibilità a PadreSergio House, Monopoli.">
     <meta name="twitter:image" content="https://padresergiohouseapulia.github.io/padresergio_richiesta/anteprima.jpg">
-
     <link rel="icon" type="image/x-icon" href="modulo_richiesta.ico">
+
     <style>
         :root { --colore-principale: #5e7153; --colore-secondario: #8c9c83; --sfondo: #f4f7f6; }
-        body { font-family: 'Arial', sans-serif; background-color: var(--sfondo); padding: 20px; color: #333; margin: 0; }
         
-        .container { max-width: 600px; background: white; margin: 20px auto; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            padding: 20px; 
+            color: #333; 
+            margin: 0; 
+            min-height: 100vh; /* Dice al sito di prendere tutta l'altezza dello schermo */
+            display: flex; /* Attiva il motore di allineamento */
+            align-items: center; /* Centra in verticale! */
+            justify-content: center; /* Centra in orizzontale! */
+            box-sizing: border-box;
+        }
+        
+        .container { 
+            width: 100%; 
+            max-width: 600px; 
+            background: white; 
+            margin: 0; /* Rimosso il margine vecchio */
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            position: relative; 
+        }
+
         h1 { color: var(--colore-principale); text-align: center; font-family: 'Georgia', serif; margin-top: 10px; }
         p.desc { text-align: center; color: #666; margin-bottom: 30px; font-size: 15px; line-height: 1.5; }
         
@@ -90,10 +109,9 @@
     </style>
 </head>
 <body>
-
-	<video autoplay muted loop playsinline class="video-sfondo">
-        <source src="video_sfondo.mp4" type="video/mp4">
-    </video>
+	<video class="video-sfondo" autoplay loop muted playsinline preload="auto" poster="foto di attesa.jpg">
+        	<source src="video_sfondo.mp4" type="video/mp4">
+        </video>
     <div class="video-overlay"></div>
 
 <div class="container glass-effect" id="form-container">
