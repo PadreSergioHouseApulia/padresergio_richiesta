@@ -24,30 +24,32 @@
     <style>
         :root { --colore-principale: #5e7153; --colore-secondario: #8c9c83; --sfondo: #f4f7f6; }
         
+        /* Flexbox per centrare in automatico la finestra */
         body { 
             font-family: 'Arial', sans-serif; 
             padding: 20px; 
             color: #333; 
             margin: 0; 
-            min-height: 100vh; /* Dice al sito di prendere tutta l'altezza dello schermo */
-            display: flex; /* Attiva il motore di allineamento */
-            align-items: center; /* Centra in verticale! */
-            justify-content: center; /* Centra in orizzontale! */
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
             box-sizing: border-box;
+            background: transparent !important; /* Per far vedere il video */
         }
         
         .container { 
             width: 100%; 
             max-width: 600px; 
             background: white; 
-            margin: 0; /* Rimosso il margine vecchio */
+            margin: 0; 
             padding: 40px; 
             border-radius: 10px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
             position: relative; 
         }
 
-        h1 { color: var(--colore-principale); text-align: center; font-family: 'Georgia', serif; margin-top: 10px; }
+        h1 { color: var(--colore-principale); text-align: center; font-family: 'Georgia', serif; margin-top: 10px; min-height: 38px; }
         p.desc { text-align: center; color: #666; margin-bottom: 30px; font-size: 15px; line-height: 1.5; }
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
@@ -73,7 +75,7 @@
             h1 { font-size: 24px; margin-top: 20px; }
         }
 
-	/* --- STILE VIDEO IMMERSIVO --- */
+        /* STILE VIDEO IMMERSIVO */
         .video-sfondo {
             position: fixed;
             top: 50%;
@@ -90,28 +92,37 @@
         .video-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.25); /* Filtro scuro leggero per far leggere il modulo */
+            background-color: rgba(0, 0, 0, 0.25);
             z-index: -1;
         }
 
-        /* --- EFFETTO VETRO SMERIGLIATO (GLASSMORPHISM) --- */
+        /* EFFETTO VETRO SMERIGLIATO */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.65) !important; /* Bianco elegante semi-trasparente */
-            backdrop-filter: blur(15px) !important; /* La vera magia: la sfocatura stile iPhone */
-            -webkit-backdrop-filter: blur(15px) !important; /* Per i dispositivi Apple */
+            background: rgba(255, 255, 255, 0.75) !important;
+            backdrop-filter: blur(15px) !important;
+            -webkit-backdrop-filter: blur(15px) !important;
             border: 1px solid rgba(255, 255, 255, 0.6) !important;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
         }
         
-        /* Assicuriamoci che il body sia trasparente per far vedere il video */
-        body { background: transparent !important; }
+        /* MACCHINA DA SCRIVERE CURSORE */
+        .cursor { display: inline-block; width: 2px; background-color: var(--colore-principale); animation: blink 0.7s infinite; margin-left: 2px; height: 1em; vertical-align: bottom; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
+        /* WIDGET WHATSAPP */
+        .wa-float { position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 2px 2px 15px rgba(0,0,0,0.2); z-index: 100; transition: transform 0.3s; text-decoration: none; }
+        .wa-float svg { margin-top: -2px; }
+        .wa-float:hover { transform: scale(1.1); }
+        .wa-bubble { position: fixed; bottom: 90px; right: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 100; width: 220px; font-size: 14px; line-height: 1.4; display: none; opacity: 0; transition: opacity 0.5s; border-left: 4px solid #25d366; }
+        .wa-close { position: absolute; top: 2px; right: 8px; cursor: pointer; color: #999; font-size: 18px; font-weight: bold; }
+        .wa-close:hover { color: #333; }
+        .wa-bubble-tail { content: ''; position: absolute; bottom: -10px; right: 20px; border-width: 10px 10px 0; border-style: solid; border-color: white transparent transparent transparent; }
     </style>
 </head>
 <body>
-	<video class="video-sfondo" autoplay loop muted playsinline preload="auto" poster="foto di attesa.jpg">
-        	<source src="video_sfondo.mp4" type="video/mp4">
-        </video>
+    <video class="video-sfondo" autoplay loop muted playsinline preload="auto" poster="foto di attesa.jpg">
+        <source src="video_sfondo.mp4" type="video/mp4">
+    </video>
     <div class="video-overlay"></div>
 
 <div class="container glass-effect" id="form-container">
@@ -120,10 +131,12 @@
         <span class="lang-btn" id="btn-en" onclick="changeLang('en')">🇬🇧</span>
     </div>
 
+    <div id="smartGreeting" style="text-align: center; color: var(--colore-secondario); font-weight: bold; font-size: 13px; margin-bottom: -5px; text-transform: uppercase; letter-spacing: 1px;"></div>
+    
     <h1>
-        <span lang="it">Richiedi Disponibilità</span>
-        <span lang="en">Request Availability</span>
+        <span id="typewriter-text"></span><span class="cursor"></span>
     </h1>
+    
     <p class="desc">
         <span lang="it">Compila il modulo per verificare la disponibilità delle date e ricevere la nostra migliore offerta.</span>
         <span lang="en">Fill out the form to check date availability and receive our best offer.</span>
@@ -192,26 +205,36 @@
     </form>
 </div>
 
+<a href="https://wa.me/393384699286" target="_blank" class="wa-float">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
+      <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+    </svg>
+</a>
+
+<div class="wa-bubble" id="wa-bubble">
+    <div class="wa-close" onclick="chiudiBubble()">×</div>
+    <span lang="it">Hai dubbi sulle date? Scrivimi in chat, ti aiuto io! 🏖️</span>
+    <span lang="en">Any doubts about dates? Chat with me here! 🏖️</span>
+    <div class="wa-bubble-tail"></div>
+</div>
+
 <script>
     // --- BLOCCO DELLE DATE PASSATE ---
     document.addEventListener("DOMContentLoaded", function() {
         const campoArrivo = document.getElementById('arrivo');
         const campoPartenza = document.getElementById('partenza');
         
-        // Prende la data di oggi e la imposta come minima per l'arrivo
         let oggi = new Date().toISOString().split("T")[0];
         campoArrivo.setAttribute('min', oggi);
         campoPartenza.setAttribute('min', oggi);
 
-        // Quando si seleziona l'arrivo, la partenza deve essere almeno il giorno dopo
         campoArrivo.addEventListener('change', function() {
             let dataMinPartenza = new Date(this.value);
-            dataMinPartenza.setDate(dataMinPartenza.getDate() + 1); // Aggiunge 1 giorno
+            dataMinPartenza.setDate(dataMinPartenza.getDate() + 1); 
             let minPartenzaStr = dataMinPartenza.toISOString().split("T")[0];
             
             campoPartenza.setAttribute('min', minPartenzaStr);
             
-            // Se la partenza selezionata prima è precedente al nuovo limite, la azzera
             if(campoPartenza.value && campoPartenza.value < minPartenzaStr) {
                 campoPartenza.value = "";
             }
@@ -225,18 +248,70 @@
             opt1: "1 Ospite", opt2: "2 Ospiti", opt3: "3 Ospiti", opt4: "4 Ospiti", opt5: "5 o più Ospiti",
             successTitle: "Richiesta Inviata! ✈️",
             successDesc: "Grazie per averci contattato. Ti risponderemo al più presto con la disponibilità e le tariffe.",
-            errore: "Errore di connessione. Riprova."
+            errore: "Errore di connessione. Riprova.",
+            titoloType: "Richiedi Disponibilità"
         },
         en: {
             placeholder: "E.g. We are traveling with a small dog...",
             opt1: "1 Guest", opt2: "2 Guests", opt3: "3 Guests", opt4: "4 Guests", opt5: "5 or more Guests",
             successTitle: "Request Sent! ✈️",
             successDesc: "Thank you for contacting us. We will reply as soon as possible with availability and rates.",
-            errore: "Connection error. Please try again."
+            errore: "Connection error. Please try again.",
+            titoloType: "Request Availability"
         }
     };
 
     let linguaAttuale = 'it';
+    let typeInterval; // Variabile per fermare l'animazione se si cambia lingua velocemente
+
+    // --- FUNZIONE MACCHINA DA SCRIVERE ---
+    function avviaTypewriter(lang) {
+        clearInterval(typeInterval);
+        const textToType = traduzioni[lang].titoloType;
+        const container = document.getElementById('typewriter-text');
+        container.innerHTML = "";
+        let i = 0;
+        
+        typeInterval = setInterval(() => {
+            if (i < textToType.length) {
+                container.innerHTML += textToType.charAt(i);
+                i++;
+            } else {
+                clearInterval(typeInterval); // Fine digitazione
+            }
+        }, 70); // Velocità di digitazione (in millisecondi)
+    }
+
+    // --- SALUTO INTELLIGENTE IN BASE ALL'ORARIO ---
+    function impostaSalutoIntelligente() {
+        const ora = new Date().getHours();
+        let salutoIT, salutoEN;
+        
+        if(ora >= 5 && ora < 13) { 
+            salutoIT = "Buongiorno! ☀️"; salutoEN = "Good morning! ☀️"; 
+        } else if(ora >= 13 && ora < 18) { 
+            salutoIT = "Buon pomeriggio! ☕"; salutoEN = "Good afternoon! ☕"; 
+        } else { 
+            salutoIT = "Buonasera! 🌙"; salutoEN = "Good evening! 🌙"; 
+        }
+        
+        document.getElementById('smartGreeting').innerHTML = `<span lang="it">${salutoIT} Pronti per la Puglia?</span><span lang="en">${salutoEN} Ready for Puglia?</span>`;
+    }
+
+    // --- LOGICA BUBBLE WHATSAPP ---
+    function mostraBubble() {
+        setTimeout(() => {
+            const bubble = document.getElementById('wa-bubble');
+            bubble.style.display = 'block';
+            setTimeout(() => bubble.style.opacity = '1', 50); // Piccolo ritardo per avviare la transizione CSS
+        }, 5000); // Appare dopo 5 secondi
+    }
+
+    function chiudiBubble() {
+        const bubble = document.getElementById('wa-bubble');
+        bubble.style.opacity = '0';
+        setTimeout(() => bubble.style.display = 'none', 500); // Aspetta che finisca la sfumatura prima di nasconderlo del tutto
+    }
 
     // --- FUNZIONE CAMBIO LINGUA ---
     function changeLang(lang) {
@@ -259,24 +334,27 @@
         document.getElementById('opt5').innerText = traduzioni[lang].opt5;
 
         localStorage.setItem('pref-lang-form', lang);
+        
+        // Fai ripartire la macchina da scrivere con la nuova lingua!
+        avviaTypewriter(lang);
     }
 
-	window.onload = () => {
-            const saved = localStorage.getItem('pref-lang');
-            if (saved) {
-                // Se l'ospite aveva già scelto una lingua, usiamo quella
-                changeLang(saved);
+    window.onload = () => {
+        impostaSalutoIntelligente(); // Imposta il buongiorno/buonasera
+        mostraBubble(); // Avvia il timer di 5 secondi per WhatsApp
+
+        const saved = localStorage.getItem('pref-lang');
+        if (saved) {
+            changeLang(saved);
+        } else {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.toLowerCase().startsWith('it')) {
+                changeLang('it');
             } else {
-                // MAGIA: Rileva la lingua del telefono dell'ospite!
-                const userLang = navigator.language || navigator.userLanguage;
-                // Se il telefono è impostato su Italiano, mostra ITA. Altrimenti, forza l'Inglese.
-                if (userLang.toLowerCase().startsWith('it')) {
-                    changeLang('it');
-                } else {
-                    changeLang('en');
-                }
+                changeLang('en');
             }
-        };
+        }
+    };
 
     window.addEventListener('DOMContentLoaded', () => {
         const savedLang = localStorage.getItem('pref-lang-form') || 'it';
