@@ -3,317 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richiesta Disponibilità | PadreSergio House</title>
     
-    <title>PadreSergio House Apulia | B&B di Charme a Monopoli</title>
-    <meta name="description" content="Vieni a trovarci a Monopoli. Camere accoglienti, colazione inclusa e wifi gratuito. Prenota ora la tua vacanza in Puglia!">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/it.js"></script>
 
-    <meta property="og:title" content="B&B PadreSergio House - Soggiorno Indimenticabile">
-    <meta property="og:description" content="Vieni a trovarci a Monopoli. Camere accoglienti, colazione inclusa e wifi gratuito. Prenota ora!">
+    <link rel="preload" as="video" href="assets/video_sfondo.mp4" type="video/mp4">
+    <meta name="description" content="Invia la tua richiesta di prenotazione per PadreSergio House a Monopoli. Compila il modulo e ti risponderemo al più presto!">
+    
+    <meta property="og:title" content="Prenota la tua vacanza in Puglia ☀️">
+    <meta property="og:description" content="Verifica la disponibilità a PadreSergio House, Monopoli. Inserisci le date e compila il modulo, ti aspettiamo!">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://padresergiohouseapulia.github.io/padresergio_web/">
-    <meta property="og:image" content="https://padresergiohouseapulia.github.io/padresergio_web/assets/anteprima.jpg">
-    <meta property="og:image:secure_url" content="https://padresergiohouseapulia.github.io/padresergio_web/assets/anteprima.jpg">
+    <meta property="og:url" content="https://padresergiohouseapulia.github.io/padresergio_richiesta/">
+    <meta property="og:image" content="https://padresergiohouseapulia.github.io/padresergio_richiesta/assets/anteprima.jpg">
+    <meta property="og:image:secure_url" content="https://padresergiohouseapulia.github.io/padresergio_richiesta/assets/anteprima.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="B&B PadreSergio House - Soggiorno Indimenticabile">
-    <meta name="twitter:description" content="Vieni a trovarci a Monopoli. Camere accoglienti, colazione inclusa e wifi gratuito.">
-    <meta name="twitter:image" content="https://padresergiohouseapulia.github.io/padresergio_web/assets/anteprima.jpg">
-
-    <link rel="icon" type="image/x-icon" href="assets/icona.ico">
+    <meta name="twitter:title" content="Prenota la tua vacanza in Puglia ☀️">
+    <meta name="twitter:description" content="Verifica la disponibilità a PadreSergio House, Monopoli.">
+    <meta name="twitter:image" content="https://padresergiohouseapulia.github.io/padresergio_richiesta/assets/anteprima.jpg">
     
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="assets/modulo_richiesta.ico">
+
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="no-scroll">
+<body>
+    <video class="video-sfondo" autoplay loop muted playsinline preload="auto" poster="assets/foto di attesa.jpg">
+        <source src="assets/video_sfondo.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
 
-    <div id="preloader">
-        <h1>PadreSergio House</h1>
+<div class="container glass-effect" id="form-container">
+    <div class="lang-switcher">
+        <span class="lang-btn active" id="btn-it" onclick="changeLang('it')">🇮🇹</span>
+        <span class="lang-btn" id="btn-en" onclick="changeLang('en')">🇬🇧</span>
     </div>
 
-    <header>
-        <div class="logo">PadreSergio House</div>
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <nav class="nav-links" id="menuNavigazione">
-            <a href="#struttura" onclick="toggleMenu()"><span lang="it">La Struttura</span><span lang="en">The Property</span></a>
-            <a href="#galleria" onclick="toggleMenu()"><span lang="it">Galleria</span><span lang="en">Gallery</span></a>
-            <a href="#recensioni" onclick="toggleMenu()"><span lang="it">Recensioni</span><span lang="en">Reviews</span></a>
-            <a href="#esperienze" onclick="toggleMenu()"><span lang="it">Esperienze</span><span lang="en">Experiences</span></a>
-            <a href="#dovesiamo" onclick="toggleMenu()"><span lang="it">Dove Siamo</span><span lang="en">Location</span></a>
-            
-            <a href="https://www.airbnb.it/rooms/660983193087442876?" target="_blank" class="btn-airbnb">
-                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display:block;height:16px;width:16px;" aria-hidden="true" role="presentation" focusable="false"><path d="M12.001 18.275c-1.353-1.697-2.148-3.184-2.413-4.457-.263-1.027-.16-1.848.291-2.465.477-.71 1.188-1.056 2.121-1.056s1.643.345 2.12 1.063c.446.61.558 1.432.286 2.465-.291 1.298-1.085 2.785-2.412 4.458zm9.601 1.14c-.185 1.246-1.034 2.28-2.2 2.783-2.253.98-4.483-.583-6.392-2.704 3.157-3.951 3.74-7.028 2.385-9.018-.795-1.14-1.933-1.695-3.394-1.695-2.944 0-4.563 2.49-3.927 5.382.37 1.565 1.352 3.343 2.917 5.332-.98 1.085-1.91 1.856-2.732 2.333-.636.344-1.245.558-1.828.609-2.679.399-4.778-2.2-3.825-4.88.132-.345.395-.98.845-1.961l.025-.053c1.464-3.178 3.242-6.79 5.285-10.795l.053-.132.58-1.116c.45-.822.635-1.19 1.351-1.643.346-.21.77-.315 1.246-.315.954 0 1.698.558 2.016 1.007.158.239.345.557.582.953l.558 1.089.08.159c2.041 4.004 3.821 7.608 5.279 10.794l.026.025.533 1.22.318.764c.243.613.294 1.222.213 1.858zm1.22-2.39c-.186-.583-.505-1.271-.9-2.094v-.03c-1.889-4.006-3.642-7.608-5.307-10.844l-.111-.163C15.317 1.461 14.468 0 12.001 0c-2.44 0-3.476 1.695-4.535 3.898l-.081.16c-1.669 3.236-3.421 6.843-5.303 10.847v.053l-.559 1.22c-.21.504-.317.768-.345.847C-.172 20.74 2.611 24 5.98 24c.027 0 .132 0 .265-.027h.372c1.75-.213 3.554-1.325 5.384-3.317 1.829 1.989 3.635 3.104 5.382 3.317h.372c.133.027.239.027.265.027 3.37.003 6.152-3.261 4.802-6.975z"></path></svg>
-                <span lang="it">Prenota su Airbnb</span><span lang="en">Book on Airbnb</span>
-            </a>
-            
-            <div class="lang-switcher">
-                <span class="lang-btn active" id="btn-it" onclick="changeLang('it')">🇮🇹</span>
-                <span class="lang-btn" id="btn-en" onclick="changeLang('en')">🇬🇧</span>
-            </div>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="hero-slideshow">
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-        </div>
-        
-        <div class="hero-content">
-            <h1>
-                <span lang="it" id="greeting-it">Benvenuti in Puglia</span>
-                <span lang="en" id="greeting-en">Welcome to Puglia</span>
-            </h1>
-            <p>
-                <span lang="it">Un'oasi di relax e charme per le tue vacanze indimenticabili, a due passi dalle bellezze della nostra terra.</span>
-                <span lang="en">An oasis of relaxation and charm for your unforgettable holidays, just steps away from the beauties of our land.</span>
-            </p>
-            <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" target="_blank" class="btn-prenota">
-                <span lang="it">Richiedi Disponibilità</span>
-                <span lang="en">Check Availability</span>
-            </a>
-        </div>
-    </section>
-
-    <section id="struttura" class="sezione">
-        <h2 class="sezione-titolo">
-            <span lang="it">Il tuo rifugio perfetto</span>
-            <span lang="en">Your perfect retreat</span>
-        </h2>
-        <p class="sezione-desc">
-            <span lang="it">PadreSergio House è stata pensata per offrire il massimo del comfort unito all'autentica ospitalità pugliese. Spazi luminosi, dettagli curati e un'atmosfera calda ti faranno sentire subito a casa.</span>
-            <span lang="en">PadreSergio House was designed to offer maximum comfort combined with authentic Apulian hospitality. Bright spaces, refined details and a warm atmosphere will make you feel right at home.</span>
-        </p>
-        
-        <div class="griglia-servizi">
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-                </svg>
-            </div><h3><span lang="it">Wi-Fi Veloce</span><span lang="en">Fast Wi-Fi</span></h3><p style="font-size:14px;"><span lang="it">Connessione gratuita in tutta la struttura per navigare o lavorare.</span><span lang="en">Free connection throughout the property to browse or work.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="#3498db" stroke="none">
-                    <path d="M383.2 941.6c-4 0-6.4-0.8-9.6-2.4-14.4-9.6-82.4-60-25.6-160 15.2-27.2 19.2-48.8 13.6-66.4-6.4-20-27.2-28-27.2-28-9.6-4-14.4-15.2-10.4-24.8 3.2-8 9.6-12.8 17.6-12.8 2.4 0 4.8 0.8 7.2 1.6 3.2 0 36.8 14.4 50.4 50.4 10.4 28.8 4.8 62.4-16.8 100-40 70.4 2.4 101.6 11.2 107.2 8.8 4.8 12 16.8 7.2 26.4-4.8 6.4-12 8.8-17.6 8.8z m129.6-42.4c-4 0-6.4-0.8-9.6-2.4-28.8-16.8-69.6-68.8-24-150.4 13.6-24.8 17.6-44.8 12-60-5.6-17.6-24-24.8-24-24.8-10.4-4-15.2-14.4-11.2-24.8 3.2-8 9.6-12.8 17.6-12.8 2.4 0 4.8 0.8 7.2 1.6 8 3.2 36 16 47.2 48 9.6 27.2 4.8 58.4-15.2 92.8-38.4 68.8 8 96.8 10.4 97.6 4 2.4 7.2 6.4 8.8 11.2 1.6 4.8 0.8 10.4-1.6 15.2-4.8 6.4-12 8.8-17.6 8.8z m-265.6 0c-4 0-6.4-0.8-9.6-2.4-28.8-16.8-69.6-68.8-24-150.4 13.6-24.8 17.6-44.8 12-60-5.6-17.6-24-24.8-24-24.8-10.4-4-15.2-14.4-11.2-24.8 3.2-8 9.6-12.8 17.6-12.8 2.4 0 4.8 0.8 7.2 1.6 8 3.2 36 16.8 47.2 48 9.6 27.2 4 58.4-15.2 93.6-38.4 68.8 8 96.8 10.4 97.6 4 2.4 7.2 6.4 8.8 11.2 1.6 4.8 0.8 10.4-1.6 15.2-4 5.6-12 8-17.6 8z m487.2-71.2c-6.4 0-11.2-2.4-15.2-6.4s-6.4-9.6-6.4-15.2c0-8.8 5.6-16.8 13.6-20.8h0.8v-43.2l-40.8 23.2v0.8c0 6.4-2.4 14.4-10.4 18.4-3.2 2.4-7.2 3.2-11.2 3.2-8 0-15.2-4-18.4-10.4-3.2-5.6-4-11.2-2.4-16.8 1.6-5.6 4.8-10.4 10.4-12.8 3.2-2.4 7.2-3.2 10.4-3.2 4 0 8 0.8 11.2 3.2l36.8-20.8-36-20.8c-4.8 1.6-8.8 2.4-12 2.4-4 0-7.2-0.8-10.4-2.4-9.6-6.4-13.6-20-8-29.6 4-6.4 11.2-10.4 19.2-10.4 4 0 8 0.8 11.2 3.2 6.4 4 10.4 10.4 10.4 18.4v0.8L728 712v-43.2h-0.8c-8-4-13.6-12-13.6-20.8 0-12 9.6-21.6 21.6-21.6 6.4 0 12 2.4 16 6.4s6.4 9.6 6.4 15.2c0 7.2-4 14.4-11.2 18.4H744v41.6l35.2-20v-0.8c0-6.4 2.4-14.4 10.4-18.4 3.2-2.4 7.2-3.2 11.2-3.2 8 0 15.2 4 18.4 10.4 3.2 5.6 4 11.2 2.4 16.8-1.6 5.6-4.8 10.4-10.4 12.8-3.2 2.4-7.2 3.2-10.4 3.2-4 0-8-0.8-11.2-3.2l-36.8 20.8 36 20.8c4.8-1.6 8.8-2.4 12-2.4 4 0 7.2 0.8 10.4 2.4 9.6 6.4 13.6 20 8 29.6-4 6.4-11.2 10.4-19.2 10.4-4 0-8-0.8-11.2-3.2-6.4-4-10.4-10.4-10.4-18.4v-0.8L744 745.6v41.6h0.8c7.2 3.2 11.2 10.4 11.2 18.4 0 12.8-9.6 22.4-21.6 22.4zM152 575.2c-60.8 0-109.6-48.8-109.6-109.6V204.8c0-60.8 48.8-109.6 109.6-109.6h721.6c60.8 0 109.6 48.8 109.6 109.6v260.8c0 60.8-48.8 109.6-109.6 109.6H152z m-11.2-432c-28.8 0-52 24-52 54.4v278.4c0 29.6 23.2 54.4 52 54.4h743.2c28.8 0 52-24 52-54.4V197.6c0-29.6-23.2-54.4-52-54.4H140.8z m21.6 312c-10.4 0-19.2-8.8-19.2-19.2 0-10.4 8.8-19.2 19.2-19.2h682.4c10.4 0 19.2 8.8 19.2 19.2 0 10.4-8.8 19.2-19.2 19.2H162.4z m0-80.8c-10.4 0-19.2-8.8-19.2-19.2S152 336 162.4 336h682.4c10.4 0 19.2 8.8 19.2 19.2 0 10.4-8.8 19.2-19.2 19.2H162.4z"></path>
-                </svg>
-            </div><h3><span lang="it">Aria Condizionata</span><span lang="en">Air Conditioning</span></h3><p style="font-size:14px;"><span lang="it">Ambienti sempre freschi e climatizzati per il massimo riposo.</span><span lang="en">Always cool and air-conditioned environments for maximum rest.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="#3498db" stroke="none">
-                    <path d="M11.85,8.37c-0.9532,0.7086-2.1239,1.0623-3.31,1H5.79V14H3V1h5.72c1.1305-0.0605,2.244,0.2952,3.13,1c0.8321,0.8147,1.2543,1.9601,1.15,3.12C13.1271,6.3214,12.7045,7.5159,11.85,8.37z M9.75,3.7C9.3254,3.3892,8.8052,3.237,8.28,3.27H5.79v3.82h2.49c0.5315,0.0326,1.056-0.1351,1.47-0.47c0.3795-0.3947,0.5693-0.9346,0.52-1.48C10.324,4.606,10.1327,4.0763,9.75,3.7z"></path>
-                </svg>
-            </div><h3><span lang="it">Parcheggio</span><span lang="en">Parking</span></h3><p style="font-size:14px;"><span lang="it">Posto auto comodo e sicuro a pochi passi dall'ingresso.</span><span lang="en">Convenient and safe parking space just steps from the entrance.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" width="64px" height="64px" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--noto" preserveAspectRatio="xMidYMid meet" fill="#000000" stroke="none">
-                    <path d="M116.86 72.26L87.43 53.07L52.56 78.02l1.28 14.55l13.92 13.44s2.08 8.8-1.6 11.2c-3.68 2.4-8.96 4.32-20.79 3.68c-11.84-.64-15.67-4.64-16.79-5.92c-1.12-1.28-2.88-5.92-2.88-5.92s-9.4-2.15-14.39-9.28c-4.48-6.4-3.68-12-2.88-14.87c.8-2.88 2.88-4.64 2.88-4.64l-.64-1.6s-5.92-2.88-6.72-9.76c-.8-6.88 2.24-16.95 7.52-24.47s6.88-6.72 6.88-6.72s-2.24-1.28-1.6-6.88c.64-5.6 8.64-12.16 16.31-16.95s13.31-7.39 18.91-6.43s7.57 3.98 7.57 3.98s8.39-5.55 18.62-3.47s15.03 9.12 15.83 10.56s2.08 1.12 2.08 1.12s4-1.12 10.56 2.24c6.56 3.36 8.8 10.08 9.28 12s1.12 5.44 1.12 5.44s2.87 1.96 4.84 6.4c2.56 5.76 3 12.32 1.56 19.04c-1.41 6.6-2.72 8.64-2.72 8.64l-3.85-1.14z" fill="#f6af3d"></path><path d="M26.64 26.01c2.09 2.79 5.45.54 9.37-2.61s6.32-5.45 4.36-7.62s-6.97 1.09-9.59 3.05c-2.61 1.95-6.1 4.56-4.14 7.18z" fill="#f9e0ca"></path><path d="M18.04 83.77c-2 0-2.87 2.37-2.87 4.49s0 4.24 2.24 4.36c1.75.1 2.87-1.12 2.99-4.49c.13-3.12-.61-4.36-2.36-4.36z" fill="#f9e0ca"></path><radialGradient id="IconifyId17ecdb2904d178eab7417" cx="65.966" cy="97.591" r="38.986" gradientUnits="userSpaceOnUse"><stop offset=".34" stop-color="#e07f16"></stop><stop offset=".821" stop-color="#e07f16" stop-opacity="0"></stop></radialGradient><path d="M62.3 100.74l-1.92.77l-10.25-1.76l-10.55 1.39l-7.01 2.97c-2.44 5.54 3.34 16.26 12.79 16.77c11.84.64 17.11-1.28 20.79-3.68c3.68-2.4 1.6-11.2 1.6-11.2l-5.45-5.26z" fill="url(#IconifyId17ecdb2904d178eab7417)"></path><radialGradient id="IconifyId17ecdb2904d178eab7418" cx="54.124" cy="64.933" r="31.201" gradientUnits="userSpaceOnUse"><stop offset=".254" stop-color="#e07f16"></stop><stop offset="1" stop-color="#e07f16" stop-opacity="0"></stop></radialGradient><path d="M55.95 86.25l6.27-17.29l-14.44-21.09l-13.3-7.6S27.41 44.55 24.22 53c-3.8 10.07-.19 21.66-.19 21.66l17.51 2.28l14.41 9.31z" fill="url(#IconifyId17ecdb2904d178eab7418)"></path><radialGradient id="IconifyId17ecdb2904d178eab7419" cx="50.236" cy="22.16" r="37.917" gradientTransform="matrix(.5812 .8137 -1.853 1.3236 62.099 -48.05)" gradientUnits="userSpaceOnUse"><stop offset=".243" stop-color="#e07f16" stop-opacity="0"></stop><stop offset=".924" stop-color="#e07f16"></stop></radialGradient><path d="M56.71 58.32L44.93 44.64L26.42 35.6s20.51-3.45 30.01-8.39s9.36-13.39 9.36-13.39l10.49 11.81l6.46 15.77l1.71 15.01l-21.66 6.84l-4.75-.95l-1.33-3.98z" fill="url(#IconifyId17ecdb2904d178eab7419)"></path><radialGradient id="IconifyId17ecdb2904d178eab7420" cx="85.227" cy="5.954" r="53.466" gradientTransform="matrix(.2807 .9598 -1.2569 .3676 68.784 -78.035)" gradientUnits="userSpaceOnUse"><stop offset=".31" stop-color="#e07f16" stop-opacity="0"></stop><stop offset=".6" stop-color="#e07f16"></stop></radialGradient><path d="M68.04 16.4s5.8-2.3 13.71-.81c9.39 1.77 16.78 6.78 16.78 6.78l4.05 14.66l-1.22 13.3l-4.18 6.84L84.45 53l-2.09-15.2l-6.27-10.83l-8.05-10.57z" fill="url(#IconifyId17ecdb2904d178eab7420)"></path><radialGradient id="IconifyId17ecdb2904d178eab7421" cx="68.084" cy="86.822" r="43.498" gradientUnits="userSpaceOnUse"><stop offset=".454" stop-color="#e07f16"></stop><stop offset=".913" stop-color="#e07f16" stop-opacity="0"></stop></radialGradient><path d="M24.81 89.49c1.94 12.13 9.29 14.05 9.29 14.05l12.35-3.61l9.12 1.14l-4.94-20.9l-16.53-5.32s-11.57.39-9.29 14.64z" fill="url(#IconifyId17ecdb2904d178eab7421)"></path><path d="M23.81 44.2c-4.77-2.62-9.41 5.2-11 8.06c-1.63 2.94-2.47 11.09.11 11.87c2.51.76 3.8-4.84 6.1-7.84c3.59-4.69 10.35-9.04 4.79-12.09z" fill="#f9e0ca"></path><radialGradient id="IconifyId17ecdb2904d178eab7422" cx="95.202" cy="57.692" r="38.434" gradientUnits="userSpaceOnUse"><stop offset=".585" stop-color="#e07f16"></stop><stop offset="1" stop-color="#e07f16" stop-opacity="0"></stop></radialGradient><path d="M97.1 59.37l9.13 5.95l5.84-5.86l4.22-11.93l.74-8.23s-.64-3.52-1.12-5.44c-.48-1.92-2.76-8.57-9.28-12c-5.32-2.8-9.34-2.52-10.63-2.35l6.59 17.51l-2.5 14.43l-2.99 7.92z" fill="url(#IconifyId17ecdb2904d178eab7422)"></path><radialGradient id="IconifyId17ecdb2904d178eab7423" cx="113.484" cy="68.604" r="35.34" gradientUnits="userSpaceOnUse"><stop offset=".098" stop-color="#e07f16"></stop><stop offset=".759" stop-color="#e07f16" stop-opacity=".125"></stop><stop offset=".854" stop-color="#e07f16" stop-opacity="0"></stop></radialGradient><path d="M121.86 45.71c-1.65-3.75-4.06-5.83-4.83-6.38l-.74 8.22l-3.71 13.23l-6.12 4.7l10.41 6.79l3.84 1.12s1.3-2.04 2.72-8.64c1.43-6.73.97-13.28-1.57-19.04z" fill="url(#IconifyId17ecdb2904d178eab7423)"></path><path d="M54.5 56.56s7.82 4.4 18.01-4.33c7.53-6.46 8.86-13.01 8.86-13.01s3.31 6.75 9.79 9.13c6.48 2.38 10.59 0 10.59 0s.13 5.16 3.71 8.34c3.57 3.18 6.62 2.78 6.62 2.78s-1.19 6.35 3.18 8.87c4.37 2.51 6.75 1.72 6.75 1.72s-1.85 9.7-8.2 9.79c-9.53.13-10.32-12.31-10.32-12.31s-2.65-.4-4.5-1.19s-3.71-1.99-3.71-1.99s-2.78 1.19-5.03 1.46c-2.25.26-5.29-.53-5.29-.53s-1.46 5.29-7.41 10.06s-13.1 6.09-13.1 6.09s.66 2.51-.53 5.56c-1.04 2.65-3.97 5.43-3.97 5.43s1.59 1.06 2.38 3.18c.79 2.12.79 4.5.79 4.5s6.8 1.41 8.2 7.15c1.59 6.48-5.69 10.45-5.69 10.45s3-6.31-.26-11.12c-4.76-7.01-17.07-7.15-17.07-7.15s.93-5.29-.13-10.32s-6.62-12.17-6.62-12.17s4.9-1.59 8.6-7.54s4.35-12.85 4.35-12.85z" fill="#cf7118"></path><radialGradient id="IconifyId17ecdb2904d178eab7424" cx="7.826" cy="80.576" r="30.524" gradientUnits="userSpaceOnUse"><stop offset=".353" stop-color="#f8c975"></stop><stop offset=".508" stop-color="#f9c368"></stop><stop offset=".794" stop-color="#fcb445"></stop><stop offset="1" stop-color="#ffa828"></stop></radialGradient><path d="M59.89 92.03c-.96 2.32-7.95-13.75-26.14-13.87S9.3 82.79 9.3 82.79s.56-1.67.59-2.58c.03-.91-.08-2.05-.08-2.05s5.3-5.72 17.62-6.01c11.71-.28 20.42 2.16 26.4 8.27c5.99 6.1 6.63 10.24 6.06 11.61z" fill="url(#IconifyId17ecdb2904d178eab7424)"></path><radialGradient id="IconifyId17ecdb2904d178eab7425" cx="21.492" cy="111.3" r="26.699" gradientUnits="userSpaceOnUse"><stop offset=".353" stop-color="#f8c975"></stop><stop offset=".508" stop-color="#f9c368"></stop><stop offset=".794" stop-color="#fcb445"></stop><stop offset="1" stop-color="#ffa828"></stop></radialGradient><path d="M60.38 101.52c-.13 2.2-8.1-1.04-19.1 1.85c-11 2.89-14.7 8.45-14.7 8.45s-.67-1.24-1.32-2.05c-.65-.81-2.04-1.77-2.04-1.77s5.33-7.18 16.9-9.26s20.38.81 20.26 2.78z" fill="url(#IconifyId17ecdb2904d178eab7425)"></path><radialGradient id="IconifyId17ecdb2904d178eab7426" cx="12.415" cy="35.956" r="44.582" gradientUnits="userSpaceOnUse"><stop offset=".221" stop-color="#f8c975"></stop><stop offset=".535" stop-color="#fbba53"></stop><stop offset=".881" stop-color="#ffa828"></stop></radialGradient><path d="M16.67 34.01s.19 1.42-.04 2.8c-.23 1.39-.72 2.25-.72 2.25s13.79.39 22.94 6.76S55.4 61.11 58.88 68.06s3.24 12.04 4.86 11.35s1.16-9.26-3.24-17.37s-12.04-18.87-23.39-23.62s-20.44-4.41-20.44-4.41z" fill="url(#IconifyId17ecdb2904d178eab7426)"></path><radialGradient id="IconifyId17ecdb2904d178eab7427" cx="61.465" cy="9.799" r="36.353" gradientUnits="userSpaceOnUse"><stop offset=".353" stop-color="#f8c975"></stop><stop offset=".508" stop-color="#f9c368"></stop><stop offset=".794" stop-color="#fcb445"></stop><stop offset="1" stop-color="#ffa828"></stop></radialGradient><path d="M59.76 11.35c-.29.78 10.85 8.82 16.11 19.06c5.26 10.25 6.35 20.5 6.98 25.58c.63 5.08.27 8.71 1.72 8.34c1.45-.36 1.77-3.81 2.18-11.06c.45-8.16-2.76-18.47-6.8-25.67c-4.13-7.35-11.22-13.62-15.87-15.72c-2.04-.92-3.97-1.49-4.32-.53z" fill="url(#IconifyId17ecdb2904d178eab7427)"></path><radialGradient id="IconifyId17ecdb2904d178eab7428" cx="94.065" cy="17.175" r="27.265" gradientUnits="userSpaceOnUse"><stop offset=".353" stop-color="#f8c975"></stop><stop offset=".508" stop-color="#f9c368"></stop><stop offset=".794" stop-color="#fcb445"></stop><stop offset="1" stop-color="#ffa828"></stop></radialGradient><path d="M94.49 19.24c-.36.42 6.11 7.81 5.77 20.51c-.31 11.9-5.62 22.31-4.72 22.67c.91.36 2.72-1.72 5.26-7.07s4.81-13.7 3.36-21.77c-1.08-6.02-4.05-11.45-6.56-13.28c-.85-.62-2.66-1.59-3.11-1.06z" fill="url(#IconifyId17ecdb2904d178eab7428)"></path><radialGradient id="IconifyId17ecdb2904d178eab7429" cx="116.994" cy="34.341" r="19.552" gradientUnits="userSpaceOnUse"><stop offset=".353" stop-color="#f8c975"></stop><stop offset=".508" stop-color="#f9c368"></stop><stop offset=".794" stop-color="#fcb445"></stop><stop offset="1" stop-color="#ffa828"></stop></radialGradient><path d="M104.98 66.6c.73 1.22 7.3-1.53 10.47-8.52c3.17-6.98 3.18-16.91 1.39-16.78c-.93.07-.98 7.61-5.24 16.22c-2.8 5.66-6.9 8.63-6.62 9.08z" fill="url(#IconifyId17ecdb2904d178eab7429)"></path>
-                </svg>
-            </div><h3><span lang="it">Colazione</span><span lang="en">Breakfast</span></h3><p style="font-size:14px;"><span lang="it">Ottima colazione a snack inclusa tra cui merendine, succhi di frutta, the, tisane e caffè.</span><span lang="en">Excellent snack breakfast included: snacks, fruit juices, tea, herbal teas and coffee.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" width="64px" height="64px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="none">
-                    <path d="M496 124.608L96 524.576V1024h832V556.576z" fill="#EAEAEA"></path><path d="M256 672h224v352H256z" fill="#434854"></path><path d="M544 640h96v96h-96zM672 640h96v96h-96zM672 512h96v96h-96zM544 512h96v96h-96z" fill="#469FCC"></path><path d="M544 512h96v32h-96zM672 512h96v32h-96zM544 640h96v32h-96zM672 640h96v32h-96z" fill=""></path><path d="M496 64L96 480v96L496 176 928 608v-96z" fill=""></path><path d="M1012.576 505.376L541.248 34.048l-22.624-22.624a31.968 31.968 0 0 0-45.248 0l-22.624 22.624L11.424 473.376a31.968 31.968 0 0 0 0 45.248l22.624 22.624a31.968 31.968 0 0 0 45.248 0L496 124.608l448.672 448.672a31.968 31.968 0 0 0 45.248 0l22.624-22.624a32.032 32.032 0 0 0 0.032-45.28z" fill="#EF4D4D"></path><path d="M238.24 1024A126.656 126.656 0 0 0 256 960a128 128 0 0 0-256 0c0 23.424 6.752 45.088 17.76 64h220.48zM896 832a127.744 127.744 0 0 0-116.224 75.04A94.848 94.848 0 0 0 736 896a96 96 0 0 0-96 96c0 11.296 2.304 21.952 5.888 32h360.384A126.944 126.944 0 0 0 1024 960a128 128 0 0 0-128-128z" fill="#3AAD73"></path><path d="M779.776 907.04A94.848 94.848 0 0 0 736 896a96 96 0 0 0-96 96c0 11.296 2.304 21.952 5.888 32h139.872A126.656 126.656 0 0 1 768 960c0-18.944 4.384-36.768 11.776-52.96z" fill=""></path>
-                </svg>
-            </div><h3><span lang="it">Giardino</span><span lang="en">Garden</span></h3><p style="font-size:14px;"><span lang="it">Comodo spazio esterno per vivere momenti di convivialità e relax.</span><span lang="en">Comfortable outdoor space for moments of conviviality and relaxation.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.001 512.001" xml:space="preserve" width="64px" height="64px" fill="#000000" stroke="none"><rect x="52.416" y="8.724" style="fill:#E6E6E6;" width="407.157" height="494.551"></rect> <circle style="fill:#FFFFFF;" cx="255.995" cy="302.349" r="155.688"></circle>
-                    <path style="fill:#C0EFFF;" d="M316.044,302.346c0-26.535,9.39-50.875,25.025-69.885c-20.192-24.549-50.8-40.206-85.068-40.206 c-60.801,0-110.091,49.29-110.091,110.091s49.29,110.091,110.091,110.091c34.267,0,64.876-15.657,85.068-40.206 C325.432,353.221,316.044,328.88,316.044,302.346z"></path> <circle style="fill:#E6FAFF;" cx="255.995" cy="302.349" r="69.887"></circle> <path d="M459.582,171.769c-4.819,0-8.724,3.906-8.724,8.724v306.258c0,4.302-3.5,7.802-7.802,7.802H137.466 c-4.818,0-8.724,3.906-8.724,8.724s3.906,8.724,8.724,8.724h305.589c13.924,0,25.25-11.328,25.25-25.25V180.493 C468.306,175.675,464.4,171.769,459.582,171.769z"></path> <path d="M443.055,0H68.946c-13.923,0-25.25,11.328-25.25,25.25v461.5c0,13.923,11.326,25.25,25.25,25.25h39.44 c4.818,0,8.724-3.906,8.724-8.724s-3.906-8.724-8.724-8.724h-39.44c-4.302,0-7.802-3.5-7.802-7.802V107.425h389.712v45.151 c0,4.818,3.905,8.724,8.724,8.724s8.724-3.906,8.724-8.724V25.25C468.306,11.328,456.978,0,443.055,0z M143.28,17.449v16.76h-42.136 v-16.76H143.28z M61.144,25.25c0-4.302,3.5-7.802,7.802-7.802h14.75v25.484c0,4.818,3.906,8.724,8.724,8.724h59.585 c4.818,0,8.724-3.906,8.724-8.724V17.449h16.246v72.528H61.144V25.25z M335.026,89.977V37.421c0-4.818-3.905-8.724-8.724-8.724 s-8.724,3.906-8.724,8.724v52.555H194.423V17.449h248.632c4.302,0,7.802,3.5,7.802,7.802v64.726H335.026z"></path> <path d="M368.669,410.15c3.661,3.135,9.169,2.703,12.3-0.956c25.438-29.725,39.448-67.671,39.448-106.848 c0-90.661-73.758-164.417-164.417-164.417S91.584,211.686,91.584,302.346s73.758,164.417,164.417,164.417 c36.409,0,70.908-11.658,99.762-33.714c3.828-2.927,4.559-8.402,1.633-12.229c-2.926-3.828-8.401-4.56-12.23-1.633 c-25.786,19.71-56.618,30.128-89.166,30.128c-81.038,0-146.968-65.93-146.968-146.968s65.93-146.968,146.968-146.968 c81.039,0,146.968,65.93,146.968,146.968c0,35.019-12.521,68.936-35.257,95.503C364.58,401.511,365.008,407.018,368.669,410.15z"></path> <path d="M347.805,226.919c-22.679-27.573-56.14-43.389-91.804-43.389c-65.515,0-118.816,53.301-118.816,118.816 c0,20.552,5.333,40.81,15.425,58.583c2.379,4.19,7.705,5.658,11.894,3.279c4.19-2.379,5.658-7.704,3.279-11.894 c-8.602-15.152-13.149-32.431-13.149-49.969c0-55.894,45.473-101.367,101.367-101.367c28.122,0,54.64,11.527,73.775,31.85 c-14.528,20.143-22.456,44.551-22.456,69.518s7.927,49.375,22.456,69.518c-19.135,20.324-45.653,31.85-73.775,31.85 c-27.722,0-53.604-10.979-72.88-30.913c-3.349-3.464-8.872-3.557-12.336-0.207c-3.464,3.349-3.557,8.872-0.207,12.336 c22.592,23.365,52.93,36.233,85.424,36.233c35.665,0,69.125-15.814,91.804-43.389c2.649-3.22,2.649-7.863,0.001-11.083 c-14.856-18.063-23.038-40.913-23.038-64.343c0-23.43,8.181-46.281,23.038-64.343C350.453,234.783,350.453,230.139,347.805,226.919z "></path> <path d="M427.679,29.668h-69.791c-4.819,0-8.724,3.906-8.724,8.724s3.905,8.724,8.724,8.724h69.791c4.819,0,8.724-3.906,8.724-8.724 S432.498,29.668,427.679,29.668z"></path> <path d="M427.679,60.308h-69.791c-4.819,0-8.724,3.906-8.724,8.724s3.905,8.724,8.724,8.724h69.791c4.819,0,8.724-3.906,8.724-8.724 S432.498,60.308,427.679,60.308z"></path>
-                </svg>
-            </div><h3><span lang="it">Lavanderia</span><span lang="en">Laundry</span></h3><p style="font-size:14px;"><span lang="it">Comoda lavatrice inclusa, servizio di asciugatrice a pagamento.</span><span lang="en">Convenient washing machine included, dryer service available for a fee.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" fill="#3498db" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32.03 32.03" xml:space="preserve" stroke="none">
-                    <path d="M31.006,24.515h-30c-0.553,0-1,0.448-1,1s0.447,1,1,1h30c0.553,0,1-0.448,1-1S31.559,24.515,31.006,24.515z"></path><path d="M29.006,4.515c-0.553,0-1,0.448-1,1v9c0,0.552,0.447,1,1,1s1-0.448,1-1v-9C30.006,4.963,29.559,4.515,29.006,4.515z"></path><path d="M3.006,4.515c-0.553,0-1,0.448-1,1v9c0,0.552,0.447,1,1,1s1-0.448,1-1v-9C4.006,4.963,3.559,4.515,3.006,4.515z"></path><path d="M3.249,13.065c-0.529-0.17-1.09,0.119-1.26,0.643L0.048,19.7c-0.169,0.525,0.118,1.089,0.643,1.259 C0.795,20.992,0.899,21.008,1,21.008c0.422,0,0.815-0.27,0.951-0.693l1.941-5.991C4.061,13.799,3.774,13.235,3.249,13.065z"></path><path d="M31.98,19.696l-1.963-5.992c-0.171-0.524-0.732-0.813-1.262-0.639c-0.525,0.172-0.811,0.737-0.639,1.262l1.963,5.992 c0.138,0.421,0.529,0.689,0.95,0.689c0.103,0,0.208-0.016,0.312-0.05C31.866,20.786,32.152,20.221,31.98,19.696z"></path><path d="M29.006,13.515h-3c-0.553,0-1,0.448-1,1s0.447,1,1,1h3c0.553,0,1-0.448,1-1S29.559,13.515,29.006,13.515z"></path><path d="M6.006,13.515h-3c-0.553,0-1,0.448-1,1s0.447,1,1,1h3c0.553,0,1-0.448,1-1S6.559,13.515,6.006,13.515z"></path><path d="M15.377,8.511L6.893,8.515L6.564,8.511c-1.446,0-1.558,1.121-1.558,1.465v4.039c0,1.022,0.672,2.5,1.887,2.5h8.144 c1.293,0,1.969-1.627,1.969-2.5V9.976C17.006,9.632,16.889,8.511,15.377,8.511z M15.007,14.015c-0.001,0.12-0.093,0.362-0.182,0.5 H7.144c-0.07-0.14-0.138-0.362-0.138-0.5v-3.5h8.001V14.015z"></path><path d="M26.597,8.917c-0.428-0.421-0.964-0.41-1.364-0.404l-8.291,0.002c-1.348,0-1.952,0.865-1.952,1.722 c0,0.55,0.444,0.991,0.994,0.994c0.002,0,0.004,0,0.006,0c0.451,0,0.833-0.303,0.958-0.716h8.058v3.5 c0,0.123-0.081,0.359-0.162,0.5h-7.812c-0.021-0.032-0.042-0.079-0.042-0.11c0-0.552-0.447-1-1-1s-1,0.448-1,1 c0,1.124,0.912,2.11,1.951,2.11h8.131c1.288,0,1.934-1.603,1.934-2.5V9.976C27.006,9.433,26.783,9.1,26.597,8.917z"></path><path d="M1.006,19.515c-0.553,0-1,0.448-1,1v6c0,0.552,0.447,1,1,1s1-0.448,1-1v-6C2.006,19.963,1.559,19.515,1.006,19.515z"></path><path d="M31.006,19.515c-0.553,0-1,0.448-1,1v6c0,0.552,0.447,1,1,1s1-0.448,1-1v-6C32.006,19.963,31.559,19.515,31.006,19.515z"></path><path d="M30.006,4.515h-28c-0.553,0-1,0.448-1,1s0.447,1,1,1h28c0.553,0,1-0.448,1-1S30.559,4.515,30.006,4.515z"></path><path d="M31.006,19.515h-30c-0.553,0-1,0.448-1,1s0.447,1,1,1h30c0.553,0,1-0.448,1-1S31.559,19.515,31.006,19.515z"></path>
-                </svg>
-            </div><h3><span lang="it">Biancheria</span><span lang="en">Bed Linen</span></h3><p style="font-size:14px;"><span lang="it">Lenzuola e set asciugamani inclusi.</span><span lang="en">Bed sheets and towel sets included.</span></p></div>
-            <div class="servizio-card"><div class="servizio-icona">
-                <svg class="icona-servizio" width="64px" height="64px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet" fill="#000000" stroke="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="#ffe62e"> <path d="M20.5 59.7l7-7.2c-2.5-.5-4.8-1.5-6.9-2.9l-.1 10.1"> </path> <path d="M43.5 4.3l-7 7.2c2.5.5 4.8 1.5 6.9 2.9l.1-10.1"> </path> <path d="M4.3 43.5l10.1-.1C13 41.3 12 39 11.5 36.5l-7.2 7"> </path> <path d="M59.7 20.5l-10.1.1c1.3 2.1 2.3 4.4 2.9 6.9l7.2-7"> </path> <path d="M4.3 20.5l7.2 7c.5-2.5 1.5-4.8 2.9-6.9l-10.1-.1"> </path> <path d="M59.7 43.5l-7.2-7c-.5 2.5-1.5 4.8-2.9 6.9l10.1.1"> </path> <path d="M20.5 4.3l.1 10.1c2.1-1.3 4.4-2.3 6.9-2.9l-7-7.2"> </path> <path d="M43.5 59.7l-.1-10.1C41.3 51 39 52 36.5 52.5l7 7.2"> </path> </g> <g fill="#ffce31"> <path d="M14.8 44l-4 9.3l9.3-4C18 47.8 16.2 46 14.8 44"> </path> <path d="M49.2 20l4-9.3l-9.2 4c2 1.5 3.8 3.3 5.2 5.3"> </path> <path d="M11.4 28.3L2 32l9.4 3.7c-.3-1.2-.4-2.4-.4-3.7s.1-2.5.4-3.7"> </path> <path d="M52.6 35.7L62 32l-9.4-3.7c.2 1.2.4 2.5.4 3.7c0 1.3-.1 2.5-.4 3.7"> </path> <path d="M20 14.8l-9.3-4l4 9.3c1.5-2.1 3.3-3.9 5.3-5.3"> </path> <path d="M44 49.2l9.3 4l-4-9.3C47.8 46 46 47.8 44 49.2"> </path> <path d="M35.7 11.4L32 2l-3.7 9.4c1.2-.2 2.5-.4 3.7-.4s2.5.1 3.7.4"> </path> <path d="M28.3 52.6L32 62l3.7-9.4c-1.2.3-2.4.4-3.7.4s-2.5-.1-3.7-.4"> </path> <circle cx="32" cy="32" r="19"> </circle> </g> </g>
-                </svg>
-            </div><h3><span lang="it">Esperienze</span><span lang="en">Experiences</span></h3><p style="font-size:14px;"><span lang="it">Esperienze uniche organizzate direttamente dall'host. Per informazioni e disponibilità chiedere in struttura.</span><span lang="en">Unique experiences organized directly by the host. Ask at the property for info and availability.</span></p></div>
-        </div>
-    </section>
-
-    <section id="galleria" class="sezione" style="background-color: var(--bianco-sfondo);">
-        <h2 class="sezione-titolo">
-            <span lang="it">Galleria</span><span lang="en">Gallery</span>
-        </h2>
-        <div class="griglia-foto">
-            <img src="assets/foto_giardino.jpg" alt="Giardino" class="foto">
-            <img src="assets/torchio.jpg" alt="Giardino" class="foto">
-            <img src="assets/foto_ingresso_interno_1.jpg" alt="Ingresso interno" class="foto">
-            <img src="assets/foto_ingresso_interno_2.jpg" alt="Ingresso interno" class="foto">
-            <img src="assets/foto_ingresso_interno_3.jpg" alt="Ingresso interno" class="foto">
-            <img src="assets/seconda_camera_da_letto_n_1.jpg" alt="Seconda camera" class="foto">
-            <img src="assets/seconda_camera_da_letto_n_2.jpg" alt="Seconda camera" class="foto">
-            <img src="assets/seconda_camera_da_letto_n_3.jpg" alt="Seconda camera" class="foto">
-            <img src="assets/prima_camera_da_letto_n_1.jpg" alt="Prima camera" class="foto">
-            <img src="assets/prima_camera_da_letto_n_2.jpg" alt="Prima camera" class="foto">
-            <img src="assets/prima_camera_da_letto_n_3.jpg" alt="Prima camera" class="foto">
-            <img src="assets/bagno_n_1.jpg" alt="Bagno" class="foto">
-            <img src="assets/bagno_n_2.jpg" alt="Bagno" class="foto">
-            <img src="assets/bagno_n_3.jpg" alt="Bagno" class="foto">
-            <img src="assets/bagno_n_4.jpg" alt="Bagno" class="foto">
-        </div>
-    </section>
-
-    <div id="recensioni" class="recensioni-container">
-        <h2 class="recensioni-titolo">
-            <span lang="it">Cosa dicono i nostri ospiti</span>
-            <span lang="en">What our guests say</span>
-        </h2>
-        <div id="recensioni-dinamiche" class="recensioni-scroll">
-            <p style="width:100%; text-align:center; font-style:italic;">
-                <span lang="it">Caricamento recensioni ufficiali Google...</span>
-                <span lang="en">Loading official Google reviews...</span>
-            </p>
-        </div>
-    </div>
-
-    <section id="esperienze" class="sezione" style="background-color: var(--crema-sfondo);">
-        <h2 class="sezione-titolo">
-            <span lang="it">Le Nostre Esperienze</span>
-            <span lang="en">Our Experiences</span>
-        </h2>
-        <p class="sezione-desc" style="margin-bottom: 20px;">
-            <span lang="it">Rendi il tuo soggiorno indimenticabile partecipando ad un'autentica Cooking Class pugliese! Metti le mani in pasta e vivi la magia della nostra tradizione culinaria.</span>
-            <span lang="en">Make your stay unforgettable by joining an authentic Apulian Cooking Class! Get your hands in the dough and experience the magic of our culinary tradition.</span>
-        </p>
-
-        <div class="griglia-esperienze">
-            
-            <div class="esperienza-card">
-                <div class="media-box slider-container">
-                    
-                    <div class="slider-track" data-index="0">
-                        <img src="assets/cooking1.jpg" alt="Cooking Class 1">
-                        <img src="assets/cooking2.jpg" alt="Cooking Class 2">
-                        <img src="assets/cooking3.jpg" alt="Cooking Class 3">
-                        <img src="assets/cooking4.jpg" alt="Cooking Class 4">
-                        <img src="assets/cooking5.jpg" alt="Cooking Class 5">
-                        <img src="assets/cooking6.jpg" alt="Cooking Class 6">
-                    </div>
-
-                    <span class="slider-freccia sx" onclick="muoviSlider(this, -1)">❮</span>
-                    <span class="slider-freccia dx" onclick="muoviSlider(this, 1)">❯</span>
-
-                </div>
-                <div class="esperienza-content">
-                    <h3>Cooking Class</h3>
-                    <p>
-                        <span lang="it">Impara i segreti della vera pasta fresca pugliese, guidato da mani esperte. Guarda la magia prendere forma, un'esperienza divertente, perfetta per coppie e famiglie. Dopo la preparazione, degusteremo insieme i piatti creati!</span>
-                        <span lang="en">Learn the secrets of authentic Apulian fresh pasta guided by expert hands. Watch the magic take shape, a fun experience, perfect for couples and families. After preparation, we will taste together the created dishes!</span>
-                    </p>
-                    <a href="https://wa.me/393384699286?text=Ciao%20PadreSergio%20House,%20vorrei%20avere%20maggiori%20informazioni%20sulla%20Cooking%20Class!" class="btn-esperienza" target="_blank">
-                        <span lang="it">Richiedi Info</span><span lang="en">Request Info</span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <section id="dovesiamo" class="sezione" style="background-color: var(--bianco-sfondo); padding-bottom: 0;">
-        <h2 class="sezione-titolo">
-            <span lang="it">La Posizione Perfetta</span>
-            <span lang="en">The Perfect Location</span>
-        </h2>
-        <p class="sezione-desc">
-            <span lang="it">PadreSergio House è il punto di partenza ideale per esplorare le meraviglie della Puglia, lontano dal caos ma vicino a tutto ciò che desideri.</span>
-            <span lang="en">PadreSergio House is the ideal starting point to explore the wonders of Puglia, away from the chaos but close to everything you desire.</span>
-        </p>
-
-        <div class="griglia-dintorni">
-            <div class="dintorni-card">
-                <div class="dintorni-icona">
-                    <svg class="icona-servizio" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 504 504" xml:space="preserve" fill="#000000" stroke="none">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#84DBFF;" cx="252" cy="252" r="252"></circle> <path style="fill:#324A5E;" d="M258.9,415.4V70c0-2.2-3.1-3.9-6.9-3.9s-6.9,1.8-6.9,3.9v345.5h13.8V415.4z"></path> <path style="fill:#FFFFFF;" d="M252,78.8L252,78.8c-92.8,0-168,64.9-168,144.9l0,0h336l0,0C420,143.6,344.8,78.8,252,78.8z"></path> <path style="fill:#FF7058;" d="M252,78.8L252,78.8c-66.3,0-120,64.9-120,144.9l0,0h240l0,0C372,143.6,318.3,78.8,252,78.8z"></path> <path style="fill:#FFFFFF;" d="M252,78.8L252,78.8c-39.8,0-72,64.9-72,144.9l0,0h144l0,0C324,143.6,291.8,78.8,252,78.8z"></path> <path style="fill:#FF7058;" d="M252,78.8L252,78.8c-13.3,0-24,64.9-24,144.9l0,0h48l0,0C276,143.6,265.3,78.8,252,78.8z"></path> <path style="fill:#E6E9EE;" d="M420,223.6c0,9.1-10.7,16.4-24,16.4s-24-7.4-24-16.4"></path> <path style="fill:#F1543F;" d="M372,223.6c0,9.1-10.7,16.4-24,16.4s-24-7.4-24-16.4"></path> <path style="fill:#E6E9EE;" d="M324,223.6c0,9.1-10.7,16.4-24,16.4s-24-7.4-24-16.4"></path> <path style="fill:#F1543F;" d="M276,223.6c0,9.1-10.7,16.4-24,16.4c-13.3,0-24-7.4-24-16.4"></path> <path style="fill:#E6E9EE;" d="M228,223.6c0,9.1-10.7,16.4-24,16.4s-24-7.4-24-16.4"></path> <path style="fill:#F1543F;" d="M180,223.6c0,9.1-10.7,16.4-24,16.4s-24-7.4-24-16.4"></path> <path style="fill:#E6E9EE;" d="M132,223.6c0,9.1-10.7,16.4-24,16.4s-24-7.4-24-16.4"></path> <path style="fill:#FFD05B;" d="M252,504c81.7,0,154.4-39,200.4-99.3H51.6C97.6,465,170.3,504,252,504z"></path> </g>
-                    </svg>
-                </div>
-                <div class="dintorni-titolo"><span lang="it">Mare e Spiagge</span><span lang="en">Sea & Beaches</span></div>
-                <div class="dintorni-tempo"><span lang="it">a 10 minuti</span><span lang="en">10 mins away</span></div>
-            </div>
-            <div class="dintorni-card">
-                <div class="dintorni-icona">
-                    <svg class="icona-servizio" fill="#3498db" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 286.154 286.154" xml:space="preserve" width="64px" height="64px" stroke="none">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M276.923,249.231v-41.538h4.615v-9.231h-4.615V180h4.615v-9.231h-4.615v-9.231h4.615v-9.231h-5.751l-8.095-28.338v-13.2 h-9.231v13.2l-8.095,28.338h-5.751v9.231h4.615v9.231h-36.923v-23.077h9.231v-9.231h-9.231v-23.077h9.231v-9.231h-18.462v-9.231 h4.615v-9.231h-4.615V78.46h4.615v-9.231h-4.615V44.926l-18.462-32.308V0h-9.231v12.618l-18.462,32.308v24.305h-4.615v9.231 h4.615v9.231h-4.615v9.231h4.615v9.231h-18.462v9.231h9.231v23.077h-9.231v9.231h9.231v23.077H36.923v-9.231h4.615v-9.231h-5.751 l-8.095-28.338v-13.2h-9.231v13.2l-8.095,28.338H4.615v9.231H9.23v9.231H4.615V180H9.23v18.462H4.615v9.231H9.23v41.538H0v36.923 h166.154h27.692h92.308v-36.923H276.923z M36.923,180h110.769v18.462H129.23v-9.231H120v9.231h-13.846v-9.231h-9.231v9.231 H83.077v-9.231h-9.231v9.231H60v-9.231h-9.231v9.231H36.923V180z M36.923,207.692h110.769v18.462H129.23v-9.231H120v9.231 h-13.846v-9.231h-9.231v9.231H83.077v-9.231h-9.231v9.231H60v-9.231h-9.231v9.231H36.923V207.692z M36.923,235.384h110.769 v13.846H129.23v-4.615H120v4.615h-13.846v-4.615h-9.231v4.615H83.077v-4.615h-9.231v4.615H60v-4.615h-9.231v4.615H36.923V235.384 z M23.077,141.415l3.111,10.892h-6.222L23.077,141.415z M18.462,161.538h9.231v9.231h-9.231V161.538z M18.462,180h9.231v18.462 h-9.231V180z M18.462,207.692h9.231v41.538h-9.231V207.692z M147.693,276.924h-9.231v-9.231h-9.231v9.231H120v-9.231h-9.231 v9.231h-9.231v-9.231h-9.231v9.231h-9.231v-9.231h-9.231v9.231h-9.231v-9.231h-9.231v9.231h-9.231v-9.231h-9.231v9.231H27.69 v-9.231h-9.231v9.231H9.231v-18.462h138.462V276.924z M263.077,141.415l3.111,10.892h-6.226L263.077,141.415z M258.462,161.538 h9.231v9.231h-9.231V161.538z M258.461,180h9.231v18.462h-9.231V180z M258.461,207.693h9.231v41.538h-9.231V207.693z M212.307,180h36.924v18.462H240v-9.231h-9.231v9.231h-18.462V180z M212.307,207.692h36.924v18.462H240v-9.231h-9.231v9.231 h-18.462V207.692z M212.307,235.384h36.923v13.846H240v-4.615h-9.231v4.615h-18.462V235.384z M180,23.151l10.509,18.387h-21.018 L180,23.151z M166.154,50.769h27.692v18.462h-27.692V50.769z M166.154,78.462h27.692v27.692h-27.692V78.462z M184.616,276.923 h-9.231v-9.231h9.231V276.923z M203.077,276.924h-9.231v-18.462h-27.692v18.462h-9.231v-27.692h46.154V276.924z M203.077,240 h-18.462v-4.615h-9.23V240h-18.462v-32.308h46.154V240z M203.077,198.462h-18.462v-9.231h-9.231v9.231h-18.462V180h46.155 V198.462z M203.077,170.769h-18.462v-13.846h-9.231v13.846h-18.462v-23.077h0.001h46.154V170.769z M203.077,138.462h-18.462 v-13.846h-9.231v13.846h-18.462v-23.077h0.001h46.154V138.462z M267.692,276.923v-9.231h-9.231v9.231h-9.231v-9.231H240v9.231 h-9.231v-9.231h-9.231v9.231h-9.231v-18.462h64.615v18.462H267.692z"></path> <rect x="175.385" y="87.692" width="9.231" height="9.231"></rect> <rect x="175.385" y="216.923" width="9.231" height="9.231"></rect> </g> </g> </g> </g>
-                    </svg>
-                </div>
-                <div class="dintorni-titolo"><span lang="it">Centro di Monopoli</span><span lang="en">Monopoli Center</span></div>
-                <div class="dintorni-tempo"><span lang="it">a 12 minuti</span><span lang="en">12 mins away</span></div>
-            </div>
-            <div class="dintorni-card">
-                <div class="dintorni-icona">
-                    <svg class="icona-servizio" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.013 512.013" xml:space="preserve" fill="#000000" stroke="none">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#38454F;" d="M494.3,198.606l-80.8-33.7c-9.9-4.1-14.7-11.4-18.7-20.9c-1.8-4.3-3.2-13.2-4.2-23l-55.2,15.8 l-26.4,79.5l-26.5-79.4l-53.5-15.4c-1,8.2-3.3,16.3-7.4,23.5c-4.4,7.8-10.2,13-19.9,14.8l-132.1,23.7 c-40.6,8.8-69.6,44.8-69.6,86.4v190.1c0,11.7,9.4,21.1,21.1,21.1h215.3c21.8,11.2,46.4,17.7,72.6,17.7s50.8-6.4,72.6-17.7h112.8 C517.9,481.106,517.9,198.606,494.3,198.606"></path> <path style="fill:#38454F;" d="M335.4,101.506l54.8,15.6c-1.2-12.9-1.8-26.4-1.8-32.4c0-15.1-12.3-27.4-27.4-27.4h-37.6 L335.4,101.506z"></path> <path style="fill:#38454F;" d="M282.5,101.506l12-44.1h-40.4c-13.6,0-24.6,11-24.6,24.6v30.4c0,1.4-0.2,2.9-0.2,4.3L282.5,101.506z "></path> </g> <path style="fill:#283238;" d="M321.1,172.906c-4.1-0.4-7.7,2.2-9,6l-3.2,9.5l-3.2-9.5c-1.3-3.8-4.9-6.4-9-6 c-87.2,6.3-155.5,79.7-155.5,167c0,92.5,75.2,167.7,167.7,167.7s167.7-75.2,167.7-167.7C476.7,252.506,408.4,179.206,321.1,172.906"></path> <path style="fill:#38454F;" d="M273.7,375.206c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8c4.9,0,8.8,4,8.8,8.8S278.5,375.206,273.7,375.206 "></path> <g> <path style="fill:#283238;" d="M129.2,266.706c7.5-15.1,7.5-32.9,0-48l-18.9-37.8l-27.8,0.2l-12.9,2.3 c-40.6,8.9-69.6,44.9-69.6,86.5v190.1c0,11.7,9.4,21.1,21.1,21.1h102.5v-190.4C123.6,282.406,125.5,274.206,129.2,266.706"></path> <path style="fill:#283238;" d="M194.2,161.206v-19.8c0-11.4-10.6-19.8-21.6-17.2l-79.4,18.3c-8,1.9-13.7,9-13.7,17.2v21.3h4.2 L194.2,161.206z"></path> </g> <polygon style="fill:#ECBA16;" points="309,4.406 335.4,101.506 397.2,119.206 335.4,136.806 309,216.306 282.5,136.806 220.7,119.206 282.5,101.506 "></polygon> <g> <path style="fill:#38454F;" d="M79.4,260.406H61.8c-9.7,0-17.7-7.9-17.7-17.7c0-9.7,7.9-17.7,17.7-17.7h17.7 c9.7,0,17.7,7.9,17.7,17.7C97.1,252.506,89.2,260.406,79.4,260.406"></path> <path style="fill:#38454F;" d="M309,454.606c-4.9,0-8.8-3.9-8.8-8.8v-17.7c0-4.9,4-8.8,8.8-8.8s8.8,3.9,8.8,8.8v17.7 C317.8,450.706,313.8,454.606,309,454.606"></path> <path style="fill:#38454F;" d="M383.9,423.606c-2.3,0-4.5-0.9-6.2-2.6l-12.5-12.5c-3.5-3.5-3.5-9,0-12.5s9-3.5,12.5,0l12.5,12.5 c3.5,3.5,3.5,9,0,12.5C388.4,422.706,386.1,423.606,383.9,423.606"></path> <path style="fill:#38454F;" d="M234.1,423.606c-2.3,0-4.5-0.9-6.2-2.6c-3.5-3.5-3.5-9,0-12.5l12.5-12.5c3.5-3.5,9-3.5,12.5,0 c3.5,3.5,3.5,9,0,12.5l-12.6,12.5C238.6,422.706,236.3,423.606,234.1,423.606"></path> </g> <path style="fill:#283238;" d="M480.8,193.006c2.9-3.2,4.8-7.3,4.8-12v-17.7c0-9.8-7.9-17.7-17.7-17.7h-17.7 c-9.8,0-17.7,7.9-17.7,17.7v9.6L480.8,193.006z"></path> <path style="fill:#434C6D;" d="M309,428.106c-48.7,0-88.3-39.6-88.3-88.3s39.6-88.3,88.3-88.3s88.3,39.6,88.3,88.3 S357.6,428.106,309,428.106"></path> <path style="fill:#7383BF;" d="M309,435.106c-52.5,0-95.3-42.7-95.3-95.3s42.7-95.3,95.3-95.3s95.3,42.7,95.3,95.3 S361.5,435.106,309,435.106z M309,258.606c-44.8,0-81.3,36.5-81.3,81.3s36.5,81.3,81.3,81.3s81.3-36.5,81.3-81.3 S353.8,258.606,309,258.606z"></path> <path style="fill:#FFFFFF;" d="M264.8,348.706c-4.9,0-8.8-3.9-8.8-8.8c0-29.2,23.8-53,53-53c4.9,0,8.8,3.9,8.8,8.8s-4,8.8-8.8,8.8 c-19.5,0-35.3,15.8-35.3,35.3C273.7,344.706,269.7,348.706,264.8,348.706"></path> <g> <path style="fill:#38454F;" d="M53,348.706c4.9,0,8.8-3.9,8.8-8.8s-4-8.8-8.8-8.8H0v17.7h53V348.706z"></path> <path style="fill:#38454F;" d="M44.1,384.006c4.9,0,8.8-3.9,8.8-8.8s-4-8.8-8.8-8.8H0v17.6H44.1z"></path> <path style="fill:#38454F;" d="M35.3,419.306c4.9,0,8.8-3.9,8.8-8.8s-4-8.8-8.8-8.8H0v17.7h35.3V419.306z"></path> </g> </g>
-                    </svg>
-                </div>
-                <div class="dintorni-titolo"><span lang="it">Polignano a Mare</span><span lang="en">Polignano a Mare</span></div>
-                <div class="dintorni-tempo"><span lang="it">a 20 minuti</span><span lang="en">20 mins away</span></div>
-            </div>
-            <div class="dintorni-card">
-                <div class="dintorni-icona">
-                    <svg class="icona-servizio" fill="#000000" width="64px" height="64px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" id="airport" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" stroke="none">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M354.796,309.438H103.652c-2.725,0-4.934,2.209-4.934,4.934v18.268h-2.926c-5.416,0-9.807,4.391-9.807,9.807v126.588h41.108 v-74.574h45.278v74.574h34.047v-74.574h45.278v74.574h34.046v-74.574v-1.385h45.278v1.385v74.574h34.047v-74.574h45.278v74.574 h41.109V342.445c0-5.416-4.392-9.807-9.808-9.807h-2.925v-18.268c0-2.725-2.209-4.934-4.934-4.934h-14.537v-56.341h-64.458V309.438z M172.373,372.912h-45.278v-19.453h45.278V372.912z M251.698,372.912H206.42v-19.453h45.278V372.912z M331.022,372.256h-45.278 v-18.797h45.278V372.256z M410.348,372.256v0.656h-45.278v-0.656v-18.797h45.278V372.256z"></path><path d="M331.719,166.891c1.514,4.569,5.785,7.653,10.599,7.653h12.479v29.462h64.458v-29.462h13.162 c4.813,0,9.085-3.084,10.6-7.653l13.639-41.141c1.05-3.167-1.308-6.432-4.645-6.432h-20.188v-18.371c0-2.604-2.11-4.714-4.715-4.714 h-30.354V58.96h17.805c6.605,0,11.961-5.354,11.961-11.96v-4.033h-78.301V47c0,6.605,5.354,11.96,11.961,11.96h17.804v37.272 h-30.354c-2.604,0-4.714,2.111-4.714,4.714v18.371h-20.189c-3.336,0-5.694,3.265-4.645,6.432L331.719,166.891z M431.828,135.03 c2.261,0,3.859,2.215,3.148,4.361l-5.691,17.167c-0.45,1.357-1.719,2.273-3.148,2.273h-27.055c-1.831,0-3.316-1.485-3.316-3.317 v-17.167c0-1.832,1.485-3.317,3.316-3.317H431.828z M342.906,135.03h32.745c1.832,0,3.317,1.485,3.317,3.317v17.167 c0,1.832-1.485,3.317-3.317,3.317h-27.054c-1.43,0-2.699-0.916-3.148-2.273l-5.691-17.167 C339.046,137.245,340.645,135.03,342.906,135.03z"></path><polygon points="419.254,236.323 419.254,218.005 354.796,218.005 354.796,236.323 354.796,239.097 419.254,239.097 "></polygon><path d="M57.354,89.034c0.938,1.525,2.202,2.84,3.653,3.888l57.412,41.479l16.448,97.619c0.655,3.888,2.64,7.429,5.614,10.018 l10.22,8.895c2.755,2.399,7.056,0.462,7.085-3.191l0.68-84.406l57.237,41.354c13.063,9.438,30.591,9.853,44.086,1.043l22.049-14.393 c2.505-1.635,2.968-5.115,0.979-7.348l-2.428-2.727c-4.456-5.003-11.213-7.298-17.794-6.042l-25.207,4.81l-116.816-99.23 c-11.382-9.669-25.806-15.337-40.738-15.125c-4.75,0.068-9.725,0.696-14.664,2.202c-8.892,2.711-12.791,12.814-8.03,20.799 C57.21,88.796,57.282,88.915,57.354,89.034z"></path><path d="M187.879,123.313c3.513,3.129,8.112,4.758,12.812,4.537l61.257-2.879c2.973-0.667,3.793-4.513,1.354-6.336l-9.051-6.761 c-2.634-1.968-5.868-2.961-9.152-2.81l-73.858-8.1c-2.998-0.329-4.649,3.386-2.397,5.392L187.879,123.313z"></path></g>
-                    </svg>
-                </div>
-                <div class="dintorni-titolo"><span lang="it">Aeroporto Bari</span><span lang="en">Bari Airport</span></div>
-                <div class="dintorni-tempo"><span lang="it">a 50 minuti</span><span lang="en">50 mins away</span></div>
-            </div>
-        </div>
-
-        <div class="mappa-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d744.6458046547098!2d17.2205409!3d40.9191685!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1347b56b7fa24647%3A0x4149e0b036b7bcc8!2sPadresergio%20house%20Apulia!5e1!3m2!1sit!2sit!4v1775743901566!5m2!1sit!2sit" 
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-    </section>
-
-    <footer>
-        <h2 style="margin-bottom: 10px;">PadreSergio House Apulia</h2>
-        <p>Contrada Padresergio, Monopoli (BA) - Italia</p>
-        <p>Email: padresergiohouse@gmail.com | Tel: +39 3384699286</p>
-        
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/1H1Mx734bc/" target="_blank" aria-label="Facebook">
-                <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.325V1.325C24 .597 23.403 0 22.675 0z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/padresergio_house_apulia_?igsh=MXYwNXhyNGt3OTRvdw==" target="_blank" aria-label="Instagram">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-        </div>
-
-        <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-            <p>
-                <span lang="it">© 2026 PadreSergio House. Tutti i diritti riservati.</span>
-                <span lang="en">© 2026 PadreSergio House. All rights reserved.</span>
-            </p>
-        </div>
-    </footer>
-
-    <div id="lightbox" class="lightbox">
-        <span class="chiudi-lightbox" onclick="chiudiLightbox()">×</span>
-        <span class="freccia sinistra" onclick="cambiaFoto(-1)">❮</span>
-        <img class="lightbox-img" id="lightbox-img" src="">
-        <span class="freccia destra" onclick="cambiaFoto(1)">❯</span>
-    </div>
-
-    <div class="mobile-sticky-bar">
-        <div class="sticky-testo">
-            <span lang="it">Ti aspettiamo!<strong>Miglior Prezzo</strong></span>
-            <span lang="en">We await you!<strong>Best Price</strong></span>
-        </div>
-        <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" class="sticky-btn">
-            <span lang="it">Prenota Ora</span>
-            <span lang="en">Book Now</span>
-        </a>
-    </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQFiBa2235R4vpn5mbRJMhlsJGTJL4OjE&libraries=places"></script>
+    <div id="smartGreeting" style="text-align: center; color: var(--colore-secondario); font-weight: bold; font-size: 13px; margin-bottom: -5px; text-transform: uppercase; letter-spacing: 1px;"></div>
     
-    <script src="script.js" defer></script>
+    <h1>
+        <span id="typewriter-text"></span><span class="cursor"></span>
+    </h1>
+    
+    <p class="desc">
+        <span lang="it">Compila il modulo per verificare la disponibilità delle date e ricevere la nostra migliore offerta.</span>
+        <span lang="en">Fill out the form to check date availability and receive our best offer.</span>
+    </p>
+    
+    <form id="richiestaForm">
+        <div class="grid">
+            <div>
+                <label><span lang="it">Nome *</span><span lang="en">First Name *</span></label>
+                <input type="text" id="nome" required>
+            </div>
+            <div>
+                <label><span lang="it">Cognome *</span><span lang="en">Last Name *</span></label>
+                <input type="text" id="cognome" required>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div>
+                <label><span lang="it">Email *</span><span lang="en">Email *</span></label>
+                <input type="email" id="email" required>
+            </div>
+            <div>
+                <label><span lang="it">Telefono / WhatsApp *</span><span lang="en">Phone / WhatsApp *</span></label>
+                <input type="tel" id="telefono" required>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div>
+                <label><span lang="it">Data Arrivo *</span><span lang="en">Check-in Date *</span></label>
+                <input type="text" id="arrivo" placeholder="Seleziona data..." required readonly>
+            </div>
+            <div>
+                <label><span lang="it">Data Partenza *</span><span lang="en">Check-out Date *</span></label>
+                <input type="text" id="partenza" placeholder="Seleziona data..." required readonly>
+            </div>
+        </div>
+        
+        <label>
+            <span lang="it">Numero di Ospiti *</span>
+            <span lang="en">Number of Guests *</span>
+        </label>
+        <select id="ospiti" required>
+            <option value="1" id="opt1">1 Ospite</option>
+            <option value="2" id="opt2" selected>2 Ospiti</option>
+            <option value="3" id="opt3">3 Ospiti</option>
+            <option value="4" id="opt4">4 Ospiti</option>
+            <option value="5+" id="opt5">5 o più Ospiti</option>
+        </select>
+
+        <label>
+            <span lang="it">Note o richieste particolari</span>
+            <span lang="en">Notes or special requests</span>
+        </label>
+        <textarea id="note" rows="4" placeholder="Es. Viaggiamo con un cagnolino..."></textarea>
+
+        <button type="button" id="btnInvia" onclick="inviaRichiesta()">
+            <span lang="it">INVIA RICHIESTA</span>
+            <span lang="en">SEND REQUEST</span>
+        </button>
+        <div id="loading" style="display:none; text-align:center; color:#5e7153; margin-top:15px; font-weight:bold;">
+            <span lang="it">Invio in corso... ⏳</span>
+            <span lang="en">Sending... ⏳</span>
+        </div>
+    </form>
+</div>
+
+<a href="https://wa.me/393384699286" target="_blank" class="wa-float">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
+      <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+    </svg>
+</a>
+
+<div class="wa-bubble" id="wa-bubble">
+    <div class="wa-close" onclick="chiudiBubble()">×</div>
+    <span lang="it">Hai dubbi sulle date? Scrivimi in chat, ti aiuto io! 🏖️</span>
+    <span lang="en">Any doubts about dates? Chat with me here! 🏖️</span>
+    <div class="wa-bubble-tail"></div>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>
