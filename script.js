@@ -1,161 +1,63 @@
-// --- LINK DEL TUO GOOGLE SCRIPT ---
-const LINK_GOOGLE = "https://script.google.com/macros/s/AKfycbzQyMUZjs7HdGLPa_Cdv1HqDbRtjqecHT2uQyyIqRDYStUKwZL1Mrya7VicNDbvSRpC/exec";
+// --- FUNZIONE MAGICA: TEMA ORARIO ---
+let temaAttuale = "";
 
-// --- LOGICA CALENDARIO AIRBNB (FLATPICKR) ---
-let calArrivo, calPartenza;
-let dateOccupate = [];
-
-async function caricaCalendario() {
-    try {
-        // Chiede al tuo Google Script tutte le date bloccate (Airbnb + Sito)
-        const risposta = await fetch(LINK_GOOGLE + "?action=getOccupiedDates");
-        const dateGrezze = await risposta.json();
-        
-        // TRADUZIONE: Trasforma i blocchi complessi in un formato che Flatpickr capisce (range di date)
-        dateOccupate = [];
-        if (dateGrezze && !dateGrezze[0]?.error) {
-            dateGrezze.forEach(blocco => {
-                if (blocco.from && blocco.to) {
-                    dateOccupate.push({
-                        from: blocco.from,
-                        to: blocco.to
-                    });
-                }
-            });
-        }
-    } catch (e) {
-        console.error("Errore caricamento calendario", e);
-    }
-    inizializzaFlatpickr();
-}
-
-function inizializzaFlatpickr() {
-    const configArrivo = {
-        locale: "it",
-        minDate: "today",
-        dateFormat: "Y-m-d",
-        disable: dateOccupate,
-        onChange: function(selectedDates, dateStr, instance) {
-            // Quando scelgo l'arrivo, la partenza deve essere come minimo il giorno dopo
-            let minCheckout = new Date(selectedDates[0]);
-            minCheckout.setDate(minCheckout.getDate() + 1);
-            calPartenza.set("minDate", minCheckout);
-        }
-    };
-
-    const configPartenza = {
-        locale: "it",
-        minDate: new Date().fp_incr(1), // Domani
-        dateFormat: "Y-m-d",
-        disable: dateOccupate
-    };
-
-    calArrivo = flatpickr("#arrivo", configArrivo);
-    calPartenza = flatpickr("#partenza", configPartenza);
-}
-
-// --- DIZIONARIO TRADUZIONI ---
-const traduzioni = {
-    it: {
-        placeholder: "Es. Viaggiamo con un cagnolino...",
-        opt1: "1 Ospite", opt2: "2 Ospiti", opt3: "3 Ospiti", opt4: "4 Ospiti", opt5: "5 o più Ospiti",
-        successTitle: "Richiesta Inviata! ✈️",
-        successDesc: "Grazie per averci contattato. Ti risponderemo al più presto con la disponibilità e le tariffe.",
-        errore: "Errore di connessione. Riprova.",
-        titoloType: "Richiedi Disponibilità"
-    },
-    en: {
-        placeholder: "E.g. We are traveling with a small dog...",
-        opt1: "1 Guest", opt2: "2 Guests", opt3: "3 Guests", opt4: "4 Guests", opt5: "5 or more Guests",
-        successTitle: "Request Sent! ✈️",
-        successDesc: "Thank you for contacting us. We will reply as soon as possible with availability and rates.",
-        errore: "Connection error. Please try again.",
-        titoloType: "Request Availability"
-    }
-};
-
-let linguaAttuale = 'it';
-let typeInterval; 
-
-// --- FUNZIONE MACCHINA DA SCRIVERE ---
-function avviaTypewriter(lang) {
-    clearInterval(typeInterval);
-    const textToType = traduzioni[lang].titoloType;
-    const container = document.getElementById('typewriter-text');
-    container.innerHTML = "";
-    let i = 0;
-    
-    typeInterval = setInterval(() => {
-        if (i < textToType.length) {
-            container.innerHTML += textToType.charAt(i);
-            i++;
-        } else {
-            clearInterval(typeInterval); 
-        }
-    }, 70); 
-}
-
-// --- SALUTO INTELLIGENTE IN BASE ALL'ORARIO ---
-function impostaSalutoIntelligente() {
+function applicaTemaOrario() {
     const ora = new Date().getHours();
-    let salutoIT, salutoEN;
+    const greetIt = document.getElementById('greeting-it');
+    const greetEn = document.getElementById('greeting-en');
+    let nuovoTema = "";
     
-    if(ora >= 5 && ora < 13) { 
-        salutoIT = "Buongiorno! ☀️"; salutoEN = "Good morning! ☀️"; 
-    } else if(ora >= 13 && ora < 18) { 
-        salutoIT = "Buon pomeriggio! ☕"; salutoEN = "Good afternoon! ☕"; 
-    } else { 
-        salutoIT = "Buonasera! 🌙"; salutoEN = "Good evening! 🌙"; 
-    }
-    
-    document.getElementById('smartGreeting').innerHTML = `<span lang="it">${salutoIT} Pronti per la Puglia?</span><span lang="en">${salutoEN} Ready for Puglia?</span>`;
-}
-
-// --- LOGICA BUBBLE WHATSAPP ---
-function mostraBubble() {
-    setTimeout(() => {
-        const bubble = document.getElementById('wa-bubble');
-        bubble.style.display = 'block';
-        setTimeout(() => bubble.style.opacity = '1', 50); 
-    }, 5000); 
-}
-
-function chiudiBubble() {
-    const bubble = document.getElementById('wa-bubble');
-    bubble.style.opacity = '0';
-    setTimeout(() => bubble.style.display = 'none', 500); 
-}
-
-// --- FUNZIONE CAMBIO LINGUA ---
-function changeLang(lang) {
-    linguaAttuale = lang;
-    if (lang === 'en') {
-        document.body.classList.add('lang-en');
-        document.getElementById('btn-en').classList.add('active');
-        document.getElementById('btn-it').classList.remove('active');
+    if (ora >= 6 && ora < 12) {
+        nuovoTema = "mattina";
+    } else if (ora >= 12 && ora < 18) {
+        nuovoTema = "pomeriggio";
+    } else if (ora >= 18 && ora < 21) {
+        nuovoTema = "tramonto";
     } else {
-        document.body.classList.remove('lang-en');
-        document.getElementById('btn-it').classList.add('active');
-        document.getElementById('btn-en').classList.remove('active');
+        nuovoTema = "notte";
     }
-    
-    document.getElementById('note').placeholder = traduzioni[lang].placeholder;
-    document.getElementById('opt1').innerText = traduzioni[lang].opt1;
-    document.getElementById('opt2').innerText = traduzioni[lang].opt2;
-    document.getElementById('opt3').innerText = traduzioni[lang].opt3;
-    document.getElementById('opt4').innerText = traduzioni[lang].opt4;
-    document.getElementById('opt5').innerText = traduzioni[lang].opt5;
 
-    localStorage.setItem('pref-lang-form', lang);
-    avviaTypewriter(lang);
+    if (temaAttuale !== nuovoTema) {
+        temaAttuale = nuovoTema;
+        document.body.classList.remove('theme-sunset', 'theme-night');
+        
+        if (nuovoTema === "mattina") {
+            greetIt.innerHTML = "Buongiorno dalla Puglia";
+            greetEn.innerHTML = "Good morning from Puglia";
+        } else if (nuovoTema === "pomeriggio") {
+            greetIt.innerHTML = "Buon pomeriggio dalla Puglia";
+            greetEn.innerHTML = "Good afternoon from Puglia";
+        } else if (nuovoTema === "tramonto") {
+            greetIt.innerHTML = "Buonasera, il sole tramonta in Puglia...";
+            greetEn.innerHTML = "Good evening, the sun sets in Puglia...";
+            document.body.classList.add('theme-sunset');
+        } else {
+            greetIt.innerHTML = "Buonanotte dalla Puglia";
+            greetEn.innerHTML = "Good night from Puglia";
+            document.body.classList.add('theme-night');
+        }
+    }
 }
+
+// Applica IL TEMA ALL'ISTANTE senza aspettare le foto
+applicaTemaOrario();
 
 window.onload = () => {
-    impostaSalutoIntelligente(); 
-    mostraBubble(); 
     
-    // Carica subito il calendario con le date di Airbnb!
-    caricaCalendario();
+    // 1. Rimuovi il Pre-loader e SBLOCCA LO SCROLL (Tempi bilanciati)
+    setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('preloader-hidden');
+        
+        // MAGIA: Sblocca lo scroll della pagina togliendo la classe al body
+        document.body.classList.remove('no-scroll');
+        
+        // Rimuovi dal DOM dopo la transizione (0.6s)
+        setTimeout(() => { preloader.style.display = 'none'; }, 600);
+    }, 1400); // Entra in azione dopo esattamente 1.4 secondi
+
+    // 2. OROLOGIO INVISIBILE: Controlla se l'ora è cambiata ogni 60 secondi
+    setInterval(applicaTemaOrario, 60000);
 
     const saved = localStorage.getItem('pref-lang');
     if (saved) {
@@ -170,41 +72,167 @@ window.onload = () => {
     }
 };
 
-window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('pref-lang-form') || 'it';
-    changeLang(savedLang);
+// --- EFFETTO PARALLASSE HERO ---
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const heroSlideshow = document.querySelector('.hero-slideshow');
+    const heroContent = document.querySelector('.hero-content');
+    
+    // Attiva il parallasse solo se siamo nella zona della copertina
+    if(heroSlideshow && scrollY < window.innerHeight) {
+        // Il background scorre più lentamente rispetto alla pagina (effetto profondità)
+        heroSlideshow.style.transform = `translateY(${scrollY * 0.4}px)`;
+        
+        // Il testo scorre leggermente e sfuma
+        heroContent.style.transform = `translateY(${scrollY * 0.2}px)`;
+        heroContent.style.opacity = 1 - (scrollY / 400); 
+    }
 });
 
-// --- FUNZIONE INVIO DATI A GOOGLE ---
-function inviaRichiesta() {
-    const form = document.getElementById('richiestaForm');
-    if (!form.checkValidity()) { form.reportValidity(); return; }
+// --- FUNZIONI LINGUA E MENU ---
+function changeLang(lang) {
+    if (lang === 'en') {
+        document.body.classList.add('lang-en');
+        document.getElementById('btn-en').classList.add('active');
+        document.getElementById('btn-it').classList.remove('active');
+    } else {
+        document.body.classList.remove('lang-en');
+        document.getElementById('btn-it').classList.add('active');
+        document.getElementById('btn-en').classList.remove('active');
+    }
+    localStorage.setItem('pref-lang', lang);
+}
 
-    document.getElementById('btnInvia').style.display = 'none';
-    document.getElementById('loading').style.display = 'block';
+function toggleMenu() {
+    if(window.innerWidth <= 768) {
+        document.getElementById("menuNavigazione").classList.toggle("active");
+    }
+}
 
-    const payload = {
-        action: "nuovaRichiesta",
-        nome: document.getElementById('nome').value,
-        cognome: document.getElementById('cognome').value,
-        email: document.getElementById('email').value,
-        telefono: document.getElementById('telefono').value,
-        arrivo: document.getElementById('arrivo').value,
-        partenza: document.getElementById('partenza').value,
-        ospiti: document.getElementById('ospiti').value,
-        note: document.getElementById('note').value
+// --- FUNZIONI GALLERIA LIGHTBOX ---
+let indiceFotoAttuale = 0;
+const fotoGalleria = Array.from(document.querySelectorAll('.foto'));
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+fotoGalleria.forEach((foto, index) => {
+    foto.addEventListener('click', function() {
+        indiceFotoAttuale = index;
+        mostraFoto(indiceFotoAttuale);
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+function chiudiLightbox() { lightbox.style.display = 'none'; document.body.style.overflow = 'auto'; }
+function cambiaFoto(n) { indiceFotoAttuale += n; mostraFoto(indiceFotoAttuale); }
+function mostraFoto(n) {
+    if (n >= fotoGalleria.length) { indiceFotoAttuale = 0; }
+    if (n < 0) { indiceFotoAttuale = fotoGalleria.length - 1; }
+    lightboxImg.src = fotoGalleria[indiceFotoAttuale].src;
+}
+
+lightbox.addEventListener('click', e => { if (e.target === lightbox) chiudiLightbox(); });
+
+document.addEventListener('keydown', e => {
+    if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') cambiaFoto(-1);
+        if (e.key === 'ArrowRight') cambiaFoto(1);
+        if (e.key === 'Escape') chiudiLightbox();
+    }
+});
+
+let xInizio = 0;
+lightbox.addEventListener('touchstart', e => xInizio = e.changedTouches[0].screenX, {passive: true});
+lightbox.addEventListener('touchend', e => {
+    let xFine = e.changedTouches[0].screenX;
+    if (xFine < xInizio - 50) cambiaFoto(1);
+    if (xFine > xInizio + 50) cambiaFoto(-1);
+}, {passive: true});
+
+// --- FUNZIONI RECENSIONI GOOGLE ---
+function caricaRecensioniGoogle() {
+    var dummyDiv = document.createElement('div');
+    var service = new google.maps.places.PlacesService(dummyDiv);
+    
+    var request = {
+        placeId: 'ChIJR0aif2u1RxMRyLy3NrDgSUE',
+        fields: ['reviews']
     };
 
-    fetch(LINK_GOOGLE, { method: "POST", body: JSON.stringify(payload) })
-    .then(() => {
-        document.getElementById('form-container').innerHTML = `
-            <h2 style="color:#5e7153; text-align:center; margin-top:20px;">${traduzioni[linguaAttuale].successTitle}</h2>
-            <p style="text-align:center; color:#666; line-height: 1.5;">${traduzioni[linguaAttuale].successDesc}</p>
-        `;
-    })
-    .catch(() => {
-        alert(traduzioni[linguaAttuale].errore);
-        document.getElementById('btnInvia').style.display = 'block';
-        document.getElementById('loading').style.display = 'none';
+    service.getDetails(request, function(place, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
+            var html = '';
+            
+            place.reviews.forEach(function(review) {
+                if(review.rating >= 4) {
+                    var stelle = '⭐'.repeat(review.rating);
+                    var testoTroncato = review.text.length > 250 ? review.text.substring(0, 250) + "..." : review.text;
+                    
+                    html += '<div class="recensione-card">';
+                    html += '<div class="stelle">' + stelle + '</div>';
+                    html += '<div class="recensione-testo">"' + testoTroncato + '"</div>';
+                    html += '<div class="recensione-autore"><img src="' + review.profile_photo_url + '" alt="Foto Profilo"> ' + review.author_name + '</div>';
+                    html += '<div class="recensione-data">su Google</div>';
+                    html += '</div>';
+                }
+            });
+            
+            if(html !== '') {
+                document.getElementById('recensioni-dinamiche').innerHTML = html;
+            } else {
+                document.getElementById('recensioni-dinamiche').innerHTML = '<p>Non ci sono ancora recensioni recenti.</p>';
+            }
+        }
     });
 }
+window.addEventListener('load', caricaRecensioniGoogle);
+
+// --- FUNZIONE PER LO SLIDER DELLE ESPERIENZE ---
+function muoviSlider(frecciaCliccata, direzione) {
+    const container = frecciaCliccata.closest('.slider-container');
+    const track = container.querySelector('.slider-track');
+    const numeroElementi = track.children.length;
+    
+    let indiceAttuale = parseInt(track.getAttribute('data-index') || '0');
+    
+    indiceAttuale += direzione;
+    
+    if (indiceAttuale < 0) { indiceAttuale = numeroElementi - 1; }
+    if (indiceAttuale >= numeroElementi) { indiceAttuale = 0; }
+    
+    track.setAttribute('data-index', indiceAttuale);
+    track.style.transform = `translateX(-${indiceAttuale * 100}%)`;
+}
+
+// --- AUTO-SCROLL SLIDER ESPERIENZE ---
+let autoScrollIntervallo = setInterval(() => {
+    const tracks = document.querySelectorAll('.slider-track');
+    tracks.forEach(track => {
+        if(track.children.length > 1) {
+            let indiceAttuale = parseInt(track.getAttribute('data-index') || '0');
+            indiceAttuale++;
+            if (indiceAttuale >= track.children.length) { indiceAttuale = 0; }
+            track.setAttribute('data-index', indiceAttuale);
+            track.style.transform = `translateX(-${indiceAttuale * 100}%)`;
+        }
+    });
+}, 4500); 
+
+// --- SWIPE CON IL DITO PER I CELLULARI ---
+let sliderStartX = 0;
+document.querySelectorAll('.slider-container').forEach(container => {
+    container.addEventListener('touchstart', e => {
+        sliderStartX = e.changedTouches[0].screenX;
+        clearInterval(autoScrollIntervallo);
+    }, {passive: true});
+    
+    container.addEventListener('touchend', e => {
+        let sliderEndX = e.changedTouches[0].screenX;
+        let frecciaDx = container.querySelector('.slider-freccia.dx');
+        let frecciaSx = container.querySelector('.slider-freccia.sx');
+        
+        if (sliderEndX < sliderStartX - 40 && frecciaDx) { muoviSlider(frecciaDx, 1); }
+        if (sliderEndX > sliderStartX + 40 && frecciaSx) { muoviSlider(frecciaSx, -1); }
+    }, {passive: true});
+});
