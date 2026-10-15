@@ -104,6 +104,7 @@ function impostaSalutoIntelligente() {
     document.getElementById('smartGreeting').innerHTML = `<span lang="it">${salutoIT}</span><span lang="en">${salutoEN}</span>`;
 }
 
+// --- LOGICA BUBBLE WHATSAPP ---
 function mostraBubble() {
     setTimeout(() => {
         const bubble = document.getElementById('wa-bubble');
@@ -139,20 +140,15 @@ function changeLang(lang) {
     document.getElementById('opt5').innerText = traduzioni[lang].opt5;
 
     localStorage.setItem('pref-lang-form', lang);
-    
-    // Avvia l'animazione SOLO se la tendina bianca di caricamento è già scomparsa
-    const loader = document.getElementById('loader-iniziale');
-    if (!loader || loader.style.display === 'none') {
-        avviaTypewriter(lang);
-    }
+    avviaTypewriter(lang);
 }
 
-// BOOTSTRAP INIZIALE
+// BOOTSTRAP
 window.onload = () => {
     impostaSalutoIntelligente(); 
     mostraBubble(); 
     caricaCalendario();
-    
+
     // Inizializza il plugin del telefono
     const inputTel = document.querySelector("#telefono");
     itiPlugin = window.intlTelInput(inputTel, {
@@ -161,29 +157,11 @@ window.onload = () => {
         separateDialCode: true,
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
     });
-
-    // --- CONTROLLO MANUTENZIONE E SINCRONIZZAZIONE ANIMAZIONE ---
-    fetch(LINK_GOOGLE + "?action=checkMaintenance")
-    .then(r => r.text())
-    .then(res => {
-        document.getElementById('loader-iniziale').style.display = 'none';
-        if(res.trim() === "ON") {
-            document.getElementById('schermata-manutenzione').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; 
-        } else {
-            // SITO ONLINE: La tendina è sparita, ora parte la macchina da scrivere visibile all'utente!
-            avviaTypewriter(linguaAttuale);
-        }
-    }).catch(e => {
-        document.getElementById('loader-iniziale').style.display = 'none';
-        avviaTypewriter(linguaAttuale);
-    });
 };
 
 // --- FUNZIONE INVIO DATI A GOOGLE ---
 function inviaRichiesta() {
     const form = document.getElementById('richiestaForm');
-    
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     if (document.getElementById('telefono').value.trim() !== "" && !itiPlugin.isValidNumber()) {
@@ -199,7 +177,7 @@ function inviaRichiesta() {
         nome: document.getElementById('nome').value,
         cognome: document.getElementById('cognome').value,
         email: document.getElementById('email').value,
-        telefono: itiPlugin.getNumber(), 
+        telefono: itiPlugin.getNumber(),
         arrivo: document.getElementById('arrivo').value,
         partenza: document.getElementById('partenza').value,
         ospiti: document.getElementById('ospiti').value,
