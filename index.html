@@ -21,9 +21,9 @@
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- MOTORE GRAFICO TAILWIND CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+    <!-- MOTORE GRAFICO TAILWIND CSS CON ANTIBLOCCO SERVER -->
+    <script src="https://cdn.tailwindcss.com" data-cfasync="false"></script>
+    <script data-cfasync="false">
         tailwind.config = {
             theme: {
                 extend: {
@@ -63,7 +63,9 @@
     <meta property="og:image:height" content="630">
 
     <link rel="icon" type="image/x-icon" href="assets/modulo_richiesta.ico">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Forzato per scavalcare la Cache -->
+    <link rel="stylesheet" href="style.css?v=10">
 </head>
 
 <body class="bg-brand-bg text-brand-text font-sans antialiased overflow-x-hidden min-h-[100dvh] relative flex items-center justify-center p-4">
@@ -186,6 +188,6 @@
 
     <!-- LIBRERIE JAVASCRIPT FINALI -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
-    <script src="script.js" defer></script>
+    <script src="script.js?v=6" defer></script>
 </body>
 </html>
