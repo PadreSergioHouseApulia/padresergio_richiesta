@@ -143,12 +143,53 @@ function changeLang(lang) {
     avviaTypewriter(lang);
 }
 
-// BOOTSTRAP
+// --- CURSORE FLUIDO E MAGNETISMO ---
+function initCursor() {
+    const dot = document.querySelector('.cursor-dot');
+    const circle = document.querySelector('.cursor-circle');
+    if (!dot || !circle || window.innerWidth <= 991) return;
+
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let circleX = mouseX, circleY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    });
+
+    function loopCursor() {
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
+        circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+        requestAnimationFrame(loopCursor);
+    }
+    loopCursor();
+
+    document.querySelectorAll('.magnetic').forEach(elem => {
+        elem.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const strength = parseFloat(this.getAttribute('data-strength')) || 20;
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * strength;
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * strength;
+            this.style.transform = `translate(${x}px, ${y}px)`;
+            document.body.classList.add('hovered');
+        });
+
+        elem.addEventListener('mouseleave', function() {
+            this.style.transform = `translate(0, 0)`;
+            document.body.classList.remove('hovered');
+        });
+    });
+}
+
+// BOOTSTRAP INIZIALE
 window.onload = () => {
     impostaSalutoIntelligente(); 
     mostraBubble(); 
     caricaCalendario();
-
+    initCursor();
+    
     // Inizializza il plugin del telefono
     const inputTel = document.querySelector("#telefono");
     itiPlugin = window.intlTelInput(inputTel, {
@@ -162,8 +203,11 @@ window.onload = () => {
 // --- FUNZIONE INVIO DATI A GOOGLE ---
 function inviaRichiesta() {
     const form = document.getElementById('richiestaForm');
+    
+    // Verifica base del form (che i campi non siano vuoti)
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
+    // Verifica Specifica del Telefono tramite la libreria
     if (document.getElementById('telefono').value.trim() !== "" && !itiPlugin.isValidNumber()) {
         alert(linguaAttuale === 'it' ? "⚠️ Inserisci un numero di telefono valido per il Paese selezionato." : "⚠️ Please enter a valid phone number for the selected country.");
         return;
@@ -177,7 +221,7 @@ function inviaRichiesta() {
         nome: document.getElementById('nome').value,
         cognome: document.getElementById('cognome').value,
         email: document.getElementById('email').value,
-        telefono: itiPlugin.getNumber(),
+        telefono: itiPlugin.getNumber(), // Estrae il prefisso selezionato (+39) unito al numero
         arrivo: document.getElementById('arrivo').value,
         partenza: document.getElementById('partenza').value,
         ospiti: document.getElementById('ospiti').value,
