@@ -81,31 +81,3 @@ body.lang-en .it, body.lang-en [lang="it"] { display: none !important; }
     animation: blink 1s step-end infinite;
 }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* =========================================
-   INTL-TEL-INPUT (Bandierine Telefono)
-   ========================================= */
-.iti {
-    width: 100%;
-}
-.iti__flag {
-    background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags.png");
-}
-@media (min-resolution: 2x) {
-    .iti__flag {
-        background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags@2x.png");
-    }
-}
-.iti__selected-dial-code {
-    color: #5c5c5c;
-    font-size: 14px;
-    font-family: 'Outfit', sans-serif;
-}
-.iti__country-list {
-    color: #1a1a1a;
-    font-family: 'Outfit', sans-serif;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border: 1px solid #e6e3dc;
-    max-width: 300px;
-}
