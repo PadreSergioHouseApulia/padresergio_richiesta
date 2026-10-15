@@ -1,9 +1,6 @@
 // --- LINK DEL TUO GOOGLE SCRIPT ---
 const LINK_GOOGLE = "https://script.google.com/macros/s/AKfycbzQyMUZjs7HdGLPa_Cdv1HqDbRtjqecHT2uQyyIqRDYStUKwZL1Mrya7VicNDbvSRpC/exec";
 
-// --- VARIABILE GLOBALE PLUGIN TELEFONO ---
-let itiPlugin;
-
 // --- LOGICA CALENDARIO AIRBNB (FLATPICKR) ---
 let calArrivo, calPartenza;
 let dateOccupate = [];
@@ -89,6 +86,7 @@ function impostaSalutoIntelligente() {
     const ora =  new Date().getHours();
     let salutoIT, salutoEN;
     
+    // SVGs con fill in currentColor per matchare il tema Dark
     const svgSole = `<svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
     const svgCaffe = `<svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px;"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>`;
     const svgLuna = `<svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
@@ -183,35 +181,20 @@ function initCursor() {
     });
 }
 
-// BOOTSTRAP INIZIALE
+// BOOTSTRAP
 window.onload = () => {
     impostaSalutoIntelligente(); 
     mostraBubble(); 
     caricaCalendario();
     initCursor();
-    
-    // Inizializza il plugin del telefono
-    const inputTel = document.querySelector("#telefono");
-    itiPlugin = window.intlTelInput(inputTel, {
-        initialCountry: "it",
-        preferredCountries: ["it", "gb", "us", "fr", "de", "es"],
-        separateDialCode: true,
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
-    });
+
+
 };
 
 // --- FUNZIONE INVIO DATI A GOOGLE ---
 function inviaRichiesta() {
     const form = document.getElementById('richiestaForm');
-    
-    // Verifica base del form (che i campi non siano vuoti)
     if (!form.checkValidity()) { form.reportValidity(); return; }
-
-    // Verifica Specifica del Telefono tramite la libreria
-    if (document.getElementById('telefono').value.trim() !== "" && !itiPlugin.isValidNumber()) {
-        alert(linguaAttuale === 'it' ? "⚠️ Inserisci un numero di telefono valido per il Paese selezionato." : "⚠️ Please enter a valid phone number for the selected country.");
-        return;
-    }
 
     document.getElementById('btnInvia').style.display = 'none';
     document.getElementById('loading').style.display = 'block';
@@ -221,7 +204,7 @@ function inviaRichiesta() {
         nome: document.getElementById('nome').value,
         cognome: document.getElementById('cognome').value,
         email: document.getElementById('email').value,
-        telefono: itiPlugin.getNumber(), // Estrae il prefisso selezionato (+39) unito al numero
+        telefono: document.getElementById('telefono').value,
         arrivo: document.getElementById('arrivo').value,
         partenza: document.getElementById('partenza').value,
         ospiti: document.getElementById('ospiti').value,
@@ -241,7 +224,6 @@ function inviaRichiesta() {
         document.getElementById('loading').style.display = 'none';
     });
 }
-
 window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('pref-lang-form');
     if (saved) {
